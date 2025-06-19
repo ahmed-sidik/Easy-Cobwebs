@@ -1,0 +1,689 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>
+1. Porownanie urzadzen</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="21707f3c-ef0e-801e-ba90-e91e9939d901" class="page sans"><header><h1 class="page-title"><br/>1. Porownanie urzadzen<br/></h1><p class="page-description"></p></header><div class="page-body"><p id="21707f3c-ef0e-800e-a5e6-f8ee21525615" class=""><mark class="highlight-teal_background">Porównanie regenerator, koncentrator, most, przełącznik, router, kiedy stosować </mark></p><p id="21707f3c-ef0e-8084-88f8-c72b2c922eb7" class="">Kiedy stosować, zasada działania, bezpieczeństwo, protokoły, koszt i parametry fizyczne, opóźnienia: koncentrator, przełącznik, router</p><p id="21707f3c-ef0e-80ec-8c88-f05109993b3a" class="">
+</p><p id="21707f3c-ef0e-8018-b467-cdb75a9b286c" class="">Regenerator jest urządzeniem warstwy pierwszej realizowanym w całości sprzętowo (bez<br/>oprogramowania). Jego zadaniem jest ponowienie sygnału - poprawienie jego kształtu i mocy. Poszerza zarówno domenę rozgłoszeniową i domenę kolizyjną. Jest stosowany w celu zwiększenia zasięgu przewodu.<br/></p><p id="21707f3c-ef0e-802e-b53a-cdaa30ca36d9" class=""><br/>Koncentrator (&quot;wieloregenerator&quot;) również jest urządzeniem warstwy pierwszej. Działa analogicznie do regeneratora, ale łączy wiele przewodów. Otrzymując sygnał retransmituje go do pozostałych portów. W przypadku kolizji nie retransmituje żadnego pakietu. Z tego powodu powinien być stosowany w sieciach o małych obciążeniach (o małym prawdopodobieństwie kolizji) - do kilku procent. Szczególnie nie powinien być wykorzystywany do zastosowań o charakterze ruchu wybuchowego - rzadkie transmisje dużej ilości danych. Świetnie sprawdza się przy równomiernym, stałym i niedużym obciążeniu.<br/></p><p id="21707f3c-ef0e-80e2-b152-ffdc7d84301b" class="">
+</p><p id="21707f3c-ef0e-804a-9bb6-e56eb036a985" class="">Most jest urządzeniem warstwy pierwszej i drugiej stosowanym do łączenia sieci heterogenicznych lub po prostu do ograniczenia domeny kolizyjnej przy zachowaniu domeny rozgłoszeniowej. Mosty nie są realizowane sprzętowo - posiadają procesor, pamięć. Zapamiętują adresy urządzeń znajdujących się po ich obu stronach, dzięki czemu po wykryciu pakietu po jednej ze stron nie muszą go przekazywać na drugą, jeżeli nie ma tam adresata. Należy je stosować gdy trzeba połączyć dwa różne media, lub po prostu do podziału domeny kolizyjnej. </p><p id="21707f3c-ef0e-80de-9330-d31b135801d4" class="">
+</p><p id="21707f3c-ef0e-80f7-9374-f38f1959f24e" class="">Przełącznik (&quot;wielomost&quot;) to urządzenie warstwy drugiej i trzeciej. Działa analogicznie do mostu, ale może realizować wiele transmisji jednocześnie. Tak jak w przypadku mostu, należy go stosować w celu łączenia sieci różnych typów, ograniczania domeny kolizyjnej. Ponadto można użyć go do tworzenia sieci VLAN. </p><p id="21707f3c-ef0e-8088-a4ad-d79a46ac223e" class="">
+</p><p id="21707f3c-ef0e-8037-b49b-efa54cf261a8" class="">Router jest urządzeniem warstwy trzeciej. Również posiada procesor i pamięć. Jest skomplikowanym urządzeniem o wielu mechanizmach i sposobach konfiguracji, przez co jest wolny. Dzieli domenę rozgłoszeniową. Może zabezpieczać przed atakami, filtrować ruch i uczestniczyć w routingu. Może łączyć np sieć LAN z MAN lub WAN. W przeciwieństwie do przełącznika posiada wiedzę o wielu sieciach, a nie tylko o jednej. Jeśli nie jest konieczne użycie routera, należy skorzystać z prostszych urządzeń. Routery stosuje się do podziału domeny rozgłoszeniowej i łączenia sieci.</p><p id="21707f3c-ef0e-8071-abaa-c583271d9987" class=""><br/>Wszystkich urządzeń tyczy się dodatkowo zasada: jeśli nie trzeba używać urządzenia, nie należy go stosować. Wszystkie urządzenia wprowadzają opóźnienia. Im bardziej skomplikowane urządzenie (wyższa warstwa) tym większe opóźnienia wprowadza. Jeżeli zamiast dwóch urządzeń można zastosować jedno, należy to zrobić.<br/></p><p id="21707f3c-ef0e-800f-aaee-f26dcf00b837" class="">
+</p><table id="21707f3c-ef0e-80b9-aa22-de78d6991f0b" class="simple-table"><tbody><tr id="21707f3c-ef0e-808f-a51a-f7cdb82a053b"><td id="pEGB" class="">Kryterium</td><td id="ZS~W" class="">Regenerator</td><td id="Y~Jm" class="">Koncentrator</td><td id="bmbH" class="">Most</td><td id="zDnA" class="">Przełącznik</td><td id="&gt;|jQ" class="">Router</td><td id="dWjr" class="">Brama</td></tr><tr id="21707f3c-ef0e-80d3-aadb-d24f365ebdb1"><td id="pEGB" class="">Domena Kolizyjna</td><td id="ZS~W" class="">Rozszerza</td><td id="Y~Jm" class="">Rozszerza</td><td id="bmbH" class="">Dzieli</td><td id="zDnA" class="">Dzieli</td><td id="&gt;|jQ" class="">Dzieli</td><td id="dWjr" class="">Dzieli</td></tr><tr id="21707f3c-ef0e-8005-b4bf-c15aab9abdcc"><td id="pEGB" class="">Domena rozgłoszeniowa</td><td id="ZS~W" class="">Rozszerza</td><td id="Y~Jm" class="">Rozszerza</td><td id="bmbH" class="">Rozszerza (dzieli z VLAN)</td><td id="zDnA" class="">Rozszerza (dzieli z VLAN)</td><td id="&gt;|jQ" class="">Dzieli</td><td id="dWjr" class="">Dzieli</td></tr><tr id="21707f3c-ef0e-80e7-a24f-cf49258e4ce1"><td id="pEGB" class="">Warstwa ISO/OSI</td><td id="ZS~W" class="">1 - Fizyczna</td><td id="Y~Jm" class="">1 - Fizyczna</td><td id="bmbH" class="">2 - Łącza Danych (głównie)</td><td id="zDnA" class="">2 - Łącza Danych (głównie)</td><td id="&gt;|jQ" class="">3 - Sieciowa</td><td id="dWjr" class="">dowolna</td></tr><tr id="21707f3c-ef0e-807f-8262-f3b9459cca0e"><td id="pEGB" class="">Warstwa TCP/IP</td><td id="ZS~W" class="">Dostępu do sieci</td><td id="Y~Jm" class="">Dostępu do sieci</td><td id="bmbH" class="">Dostępu do sieci</td><td id="zDnA" class="">Dostępu do sieci</td><td id="&gt;|jQ" class="">Internetowa</td><td id="dWjr" class="">Aplikacji</td></tr><tr id="21707f3c-ef0e-80e3-836b-cafa58811369"><td id="pEGB" class="">Cyfrowy</td><td id="ZS~W" class="">Nie</td><td id="Y~Jm" class="">Nie</td><td id="bmbH" class="">Tak</td><td id="zDnA" class="">Tak</td><td id="&gt;|jQ" class="">Tak</td><td id="dWjr" class="">Tak</td></tr><tr id="21707f3c-ef0e-8067-bb76-ebedf5eaa764"><td id="pEGB" class="">VLAN</td><td id="ZS~W" class="">Nie ma</td><td id="Y~Jm" class="">Nie ma</td><td id="bmbH" class="">Ma</td><td id="zDnA" class="">Ma</td><td id="&gt;|jQ" class="">Nie ma</td><td id="dWjr" class="">Nie ma</td></tr><tr id="21707f3c-ef0e-80ef-ba73-cc8094a12d5b"><td id="pEGB" class="">Opóźnienia</td><td id="ZS~W" class="">ns</td><td id="Y~Jm" class="">setki ns</td><td id="bmbH" class="">mikrosekundy</td><td id="zDnA" class="">mikrosekundy</td><td id="&gt;|jQ" class="">setki mikrosekund / milisekundy</td><td id="dWjr" class="">kilka milisekund</td></tr><tr id="21707f3c-ef0e-8043-a999-d1f256014f39"><td id="pEGB" class="">Filtracja ruchu</td><td id="ZS~W" class="">Nie</td><td id="Y~Jm" class="">Nie</td><td id="bmbH" class="">Tak (uczenie się)</td><td id="zDnA" class="">Tak (uczenie się)</td><td id="&gt;|jQ" class="">Tak (blokada rozgłoszeń)</td><td id="dWjr" class="">?</td></tr></tbody></table><p id="21707f3c-ef0e-8012-b5dc-fb50a4df0946" class="">Kiedy używamy?</p><ul id="21707f3c-ef0e-8065-b1b9-ef5ddcfa03e2" class="bulleted-list"><li style="list-style-type:disc">Regenerator - sieć zbudowana na magistrali o niskiej złożoności i obciążeniu, w sytuacji, gdy<br/>chcemy zwiększyć zasięg kabla<br/></li></ul><ul id="21707f3c-ef0e-80a0-874a-f0568098b6c2" class="bulleted-list"><li style="list-style-type:disc">Koncentrator - sieć zbudowana na topologii gwiazdy o niskim obciążeniu</li></ul><ul id="21707f3c-ef0e-8045-a522-daa6c2e37eee" class="bulleted-list"><li style="list-style-type:disc">Most - łaczymy 2 media transmisji</li></ul><ul id="21707f3c-ef0e-80b1-b8a7-e35f5ed7c181" class="bulleted-list"><li style="list-style-type:disc">Switch - łączymy kilka segmentów sieci, VLANy</li></ul><ul id="21707f3c-ef0e-806d-be65-ca383d626bb6" class="bulleted-list"><li style="list-style-type:disc">Router - Łączenie kilku różnych sieci, blokowanie ruchu rozgłoszeniowego - łączenie z WAN</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
