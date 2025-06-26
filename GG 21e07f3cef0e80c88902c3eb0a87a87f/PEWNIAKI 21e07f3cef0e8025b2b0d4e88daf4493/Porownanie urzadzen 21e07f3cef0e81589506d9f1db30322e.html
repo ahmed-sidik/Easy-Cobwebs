@@ -1,0 +1,689 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>
+Porownanie urzadzen</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="21e07f3c-ef0e-8158-9506-d9f1db30322e" class="page sans"><header><h1 class="page-title"><br/>Porownanie urzadzen<br/></h1><p class="page-description"></p></header><div class="page-body"><p id="21e07f3c-ef0e-8175-9ca3-edf47a2f0ec4" class="">Regenerator jest urządzeniem warstwy pierwszej realizowanym w całości sprzętowo (bez<br/>oprogramowania). Jego zadaniem jest ponowienie sygnału - poprawienie jego kształtu i mocy  umożliwiając jego przesłanie na większą odległość. Poszerza zarówno domenę rozgłoszeniową i domenę kolizyjną. Jest stosowany w celu zwiększenia zasięgu przewodu.<br/></p><p id="21e07f3c-ef0e-81f4-af06-c184b810d71c" class=""><br/>Koncentrator (&quot;wieloregenerator&quot;) również jest urządzeniem warstwy pierwszej. Działa analogicznie do regeneratora, ale łączy wiele przewodów. Otrzymując sygnał retransmituje go do pozostałych portów. W przypadku kolizji nie retransmituje żadnego pakietu. Z tego powodu powinien być stosowany w sieciach o małych obciążeniach (o małym prawdopodobieństwie kolizji) - do kilku procent. Szczególnie nie powinien być wykorzystywany do zastosowań o charakterze ruchu wybuchowego - rzadkie transmisje dużej ilości danych. Świetnie sprawdza się przy równomiernym, stałym i niedużym obciążeniu.<br/></p><p id="21e07f3c-ef0e-81d0-a731-eb2abb8a84bd" class="">
+</p><p id="21e07f3c-ef0e-814b-b671-efc0318ebbac" class="">Most jest urządzeniem warstwy pierwszej i drugiej stosowanym do łączenia sieci heterogenicznych lub po prostu do ograniczenia domeny kolizyjnej przy zachowaniu domeny rozgłoszeniowej. Mosty nie są realizowane sprzętowo - posiadają procesor, pamięć. Zapamiętują adresy urządzeń znajdujących się po ich obu stronach, dzięki czemu po wykryciu pakietu po jednej ze stron nie muszą go przekazywać na drugą, jeżeli nie ma tam adresata. Należy je stosować gdy trzeba połączyć dwa różne media, lub po prostu do podziału domeny kolizyjnej. </p><p id="21e07f3c-ef0e-81d2-a66d-ca1b72134ce1" class="">
+</p><p id="21e07f3c-ef0e-8186-b82a-d26fd4d5d475" class="">Przełącznik (&quot;wielomost&quot;) to urządzenie warstwy drugiej i trzeciej. Działa analogicznie do mostu, ale może realizować wiele transmisji jednocześnie. Tak jak w przypadku mostu, należy go stosować w celu łączenia sieci różnych typów, ograniczania domeny kolizyjnej. Ponadto można użyć go do tworzenia sieci VLAN. </p><p id="21e07f3c-ef0e-81ad-a11d-e605e1a2cb2b" class="">
+</p><p id="21e07f3c-ef0e-810b-a02b-eeefcedc2e52" class="">Router jest urządzeniem warstwy trzeciej. Również posiada procesor i pamięć. Jest skomplikowanym urządzeniem o wielu mechanizmach i sposobach konfiguracji, przez co jest wolny. Dzieli domenę rozgłoszeniową. Może zabezpieczać przed atakami, filtrować ruch i uczestniczyć w routingu. Może łączyć np sieć LAN z MAN lub WAN. W przeciwieństwie do przełącznika posiada wiedzę o wielu sieciach, a nie tylko o jednej. Jeśli nie jest konieczne użycie routera, należy skorzystać z prostszych urządzeń. Routery stosuje się do podziału domeny rozgłoszeniowej i łączenia sieci.</p><p id="21e07f3c-ef0e-8196-9c35-da00f6a8d1e6" class=""><br/>Wszystkich urządzeń tyczy się dodatkowo zasada: jeśli nie trzeba używać urządzenia, nie należy go stosować. Wszystkie urządzenia wprowadzają opóźnienia. Im bardziej skomplikowane urządzenie (wyższa warstwa) tym większe opóźnienia wprowadza. Jeżeli zamiast dwóch urządzeń można zastosować jedno, należy to zrobić.<br/></p><p id="21e07f3c-ef0e-819d-b54f-cc1072a110fa" class="">
+</p><table id="21e07f3c-ef0e-8152-8ffc-c0816f6add4d" class="simple-table"><thead class="simple-table-header"><tr id="21e07f3c-ef0e-8142-8775-d320e57f30d1"><th id="pEGB" class="simple-table-header-color simple-table-header" style="width:139.65625px">Kryterium</th><th id="ZS~W" class="simple-table-header-color simple-table-header" style="width:117.66666666666667px">Regenerator</th><th id="Y~Jm" class="simple-table-header-color simple-table-header" style="width:117.66666666666667px">Koncentrator</th><th id="bmbH" class="simple-table-header-color simple-table-header" style="width:117.66666666666667px">Most</th><th id="zDnA" class="simple-table-header-color simple-table-header" style="width:117.66666666666667px">Przełącznik</th><th id="&gt;|jQ" class="simple-table-header-color simple-table-header" style="width:117.66666666666667px">Router</th></tr></thead><tbody><tr id="21e07f3c-ef0e-811f-90f2-e2bbe881d0ea"><th id="pEGB" class="simple-table-header-color simple-table-header" style="width:139.65625px">Warstwa ISO/OSI</th><td id="ZS~W" class="" style="width:117.66666666666667px">1 - Fizyczna</td><td id="Y~Jm" class="" style="width:117.66666666666667px">1 - Fizyczna</td><td id="bmbH" class="" style="width:117.66666666666667px">2 - Łącza Danych </td><td id="zDnA" class="" style="width:117.66666666666667px">2 - Łącza Danych / 3 - Sieciowa</td><td id="&gt;|jQ" class="" style="width:117.66666666666667px">3 - Sieciowa</td></tr><tr id="21e07f3c-ef0e-80fa-bc2e-deb6a1dc9fa4"><th id="pEGB" class="simple-table-header-color simple-table-header" style="width:139.65625px">Typ połączenia</th><td id="ZS~W" class="" style="width:117.66666666666667px">Łączy dwa kable</td><td id="Y~Jm" class="" style="width:117.66666666666667px">Kilka kabli</td><td id="bmbH" class="" style="width:117.66666666666667px">Szeregowy</td><td id="zDnA" class="" style="width:117.66666666666667px">Współbieżny</td><td id="&gt;|jQ" class="" style="width:117.66666666666667px">Routing</td></tr><tr id="21e07f3c-ef0e-8183-baba-f884062be6b2"><th id="pEGB" class="simple-table-header-color simple-table-header" style="width:139.65625px">Warstwa TCP/IP</th><td id="ZS~W" class="" style="width:117.66666666666667px">Dostępu do sieci</td><td id="Y~Jm" class="" style="width:117.66666666666667px">Dostępu do sieci</td><td id="bmbH" class="" style="width:117.66666666666667px">Dostępu do sieci</td><td id="zDnA" class="" style="width:117.66666666666667px">Dostępu do sieci</td><td id="&gt;|jQ" class="" style="width:117.66666666666667px">Internetowa</td></tr><tr id="21e07f3c-ef0e-8022-a96f-fb23a9b2a141"><th id="pEGB" class="simple-table-header-color simple-table-header" style="width:139.65625px">Liczba portów</th><td id="ZS~W" class="" style="width:117.66666666666667px">2</td><td id="Y~Jm" class="" style="width:117.66666666666667px">kilka</td><td id="bmbH" class="" style="width:117.66666666666667px">kilka-kilkanaście</td><td id="zDnA" class="" style="width:117.66666666666667px">kilkanaście-klikadziesiąt</td><td id="&gt;|jQ" class="" style="width:117.66666666666667px">kilka-kilkadziesiąt</td></tr><tr id="21e07f3c-ef0e-800b-9943-f4af7e146af4"><th id="pEGB" class="simple-table-header-color simple-table-header" style="width:139.65625px">Filtracja ruchu</th><td id="ZS~W" class="" style="width:117.66666666666667px">Nie</td><td id="Y~Jm" class="" style="width:117.66666666666667px">Nie</td><td id="bmbH" class="" style="width:117.66666666666667px">Tak</td><td id="zDnA" class="" style="width:117.66666666666667px">Tak</td><td id="&gt;|jQ" class="" style="width:117.66666666666667px">Tak (firewall)</td></tr><tr id="21e07f3c-ef0e-8169-8c71-de8c1ee3fd7a"><th id="pEGB" class="simple-table-header-color simple-table-header" style="width:139.65625px">Domena rozgłoszeniowa</th><td id="ZS~W" class="" style="width:117.66666666666667px">Rozszerza</td><td id="Y~Jm" class="" style="width:117.66666666666667px">Rozszerza</td><td id="bmbH" class="" style="width:117.66666666666667px">Rozszerza</td><td id="zDnA" class="" style="width:117.66666666666667px">Rozszerza (dzieli z VLAN)</td><td id="&gt;|jQ" class="" style="width:117.66666666666667px">Dzieli</td></tr><tr id="21e07f3c-ef0e-81eb-b5b5-f9836d1401c3"><th id="pEGB" class="simple-table-header-color simple-table-header" style="width:139.65625px">Opóźnienia</th><td id="ZS~W" class="" style="width:117.66666666666667px">ns</td><td id="Y~Jm" class="" style="width:117.66666666666667px">setki ns</td><td id="bmbH" class="" style="width:117.66666666666667px">µs</td><td id="zDnA" class="" style="width:117.66666666666667px">µs</td><td id="&gt;|jQ" class="" style="width:117.66666666666667px">setki µs / ms</td></tr><tr id="21e07f3c-ef0e-8167-a763-e23de2b32112"><th id="pEGB" class="simple-table-header-color simple-table-header" style="width:139.65625px">Domena Kolizyjna</th><td id="ZS~W" class="" style="width:117.66666666666667px">Rozszerza</td><td id="Y~Jm" class="" style="width:117.66666666666667px">Rozszerza</td><td id="bmbH" class="" style="width:117.66666666666667px">Dzieli</td><td id="zDnA" class="" style="width:117.66666666666667px">Dzieli</td><td id="&gt;|jQ" class="" style="width:117.66666666666667px">Dzieli</td></tr><tr id="21e07f3c-ef0e-81bc-a696-f8807decf74f"><th id="pEGB" class="simple-table-header-color simple-table-header" style="width:139.65625px">Typ sygnału</th><td id="ZS~W" class="" style="width:117.66666666666667px">Analogowy</td><td id="Y~Jm" class="" style="width:117.66666666666667px">Analogowy</td><td id="bmbH" class="" style="width:117.66666666666667px">Cyfrowy</td><td id="zDnA" class="" style="width:117.66666666666667px">Cyfrowy</td><td id="&gt;|jQ" class="" style="width:117.66666666666667px">Cyfrowy</td></tr><tr id="21e07f3c-ef0e-8096-b0b6-d2c77f56fc41"><th id="pEGB" class="simple-table-header-color simple-table-header" style="width:139.65625px">Bezpieczeństwo</th><td id="ZS~W" class="" style="width:117.66666666666667px">Brak</td><td id="Y~Jm" class="" style="width:117.66666666666667px">Niskie</td><td id="bmbH" class="" style="width:117.66666666666667px">MAC Learning</td><td id="zDnA" class="" style="width:117.66666666666667px">filtrowanie, zabezpieczanie przeciw zalewaniu</td><td id="&gt;|jQ" class="" style="width:117.66666666666667px">Firewall, NAT, blokowanie<br/>ruchu broadcast<br/></td></tr><tr id="21e07f3c-ef0e-800a-a2b0-dd05a716aa57"><th id="pEGB" class="simple-table-header-color simple-table-header" style="width:139.65625px">Metody przełączania</th><td id="ZS~W" class="" style="width:117.66666666666667px">Nie dotyczy </td><td id="Y~Jm" class="" style="width:117.66666666666667px">Nie dotyczy </td><td id="bmbH" class="" style="width:117.66666666666667px">Store-and-Forward<br/><br/></td><td id="zDnA" class="" style="width:117.66666666666667px">Store-and-Forward / Cut-Through</td><td id="&gt;|jQ" class="" style="width:117.66666666666667px">Store-and-Forward</td></tr><tr id="21e07f3c-ef0e-81d6-be50-dbd26a95faaa"><th id="pEGB" class="simple-table-header-color simple-table-header" style="width:139.65625px">VLAN</th><td id="ZS~W" class="" style="width:117.66666666666667px">Nie ma</td><td id="Y~Jm" class="" style="width:117.66666666666667px">Nie ma</td><td id="bmbH" class="" style="width:117.66666666666667px">Ograniczone</td><td id="zDnA" class="" style="width:117.66666666666667px">Pełne wsparcie</td><td id="&gt;|jQ" class="" style="width:117.66666666666667px">Routing VLAN</td></tr><tr id="21e07f3c-ef0e-8019-b315-d50f32064bd4"><th id="pEGB" class="simple-table-header-color simple-table-header" style="width:139.65625px">Buforowanie</th><td id="ZS~W" class="" style="width:117.66666666666667px">Nie</td><td id="Y~Jm" class="" style="width:117.66666666666667px">Nie</td><td id="bmbH" class="" style="width:117.66666666666667px">Tak</td><td id="zDnA" class="" style="width:117.66666666666667px">Tak</td><td id="&gt;|jQ" class="" style="width:117.66666666666667px">Tak</td></tr><tr id="21e07f3c-ef0e-80e0-8a97-e59a7778cadc"><th id="pEGB" class="simple-table-header-color simple-table-header" style="width:139.65625px">Skalowalność</th><td id="ZS~W" class="" style="width:117.66666666666667px">Bardzo niska</td><td id="Y~Jm" class="" style="width:117.66666666666667px">Niska</td><td id="bmbH" class="" style="width:117.66666666666667px">Średnia</td><td id="zDnA" class="" style="width:117.66666666666667px">Wysoka</td><td id="&gt;|jQ" class="" style="width:117.66666666666667px">Bardzo wysoka</td></tr><tr id="21e07f3c-ef0e-802a-ac0d-e95cce9511fc"><th id="pEGB" class="simple-table-header-color simple-table-header" style="width:139.65625px">Koszt</th><td id="ZS~W" class="" style="width:117.66666666666667px">Bardzo niski</td><td id="Y~Jm" class="" style="width:117.66666666666667px">Niski</td><td id="bmbH" class="" style="width:117.66666666666667px">Średni</td><td id="zDnA" class="" style="width:117.66666666666667px">Średni-wysoki</td><td id="&gt;|jQ" class="" style="width:117.66666666666667px">Wysoki</td></tr><tr id="21e07f3c-ef0e-80cd-a90d-fa80d09554a8"><th id="pEGB" class="simple-table-header-color simple-table-header" style="width:139.65625px">Routing</th><td id="ZS~W" class="" style="width:117.66666666666667px">Nie</td><td id="Y~Jm" class="" style="width:117.66666666666667px">Nie</td><td id="bmbH" class="" style="width:117.66666666666667px">Nie</td><td id="zDnA" class="" style="width:117.66666666666667px">Statyczny</td><td id="&gt;|jQ" class="" style="width:117.66666666666667px">Dynamiczny</td></tr><tr id="21e07f3c-ef0e-808e-acb0-e93e5c69290a"><th id="pEGB" class="simple-table-header-color simple-table-header" style="width:139.65625px">Główne zastosowanie</th><td id="ZS~W" class="" style="width:117.66666666666667px">Przedłużenie kabli</td><td id="Y~Jm" class="" style="width:117.66666666666667px">Proste sieci</td><td id="bmbH" class="" style="width:117.66666666666667px">Segmentacja LAN</td><td id="zDnA" class="" style="width:117.66666666666667px">Nowoczesne LAN</td><td id="&gt;|jQ" class="" style="width:117.66666666666667px">WAN, Internet</td></tr><tr id="21e07f3c-ef0e-806b-bb7a-c70133556e1a"><th id="pEGB" class="simple-table-header-color simple-table-header" style="width:139.65625px">Wady</th><td id="ZS~W" class="" style="width:117.66666666666667px">Brak inteligencji</td><td id="Y~Jm" class="" style="width:117.66666666666667px">Kolizje, przestarzały</td><td id="bmbH" class="" style="width:117.66666666666667px">Ograniczenia</td><td id="zDnA" class="" style="width:117.66666666666667px">Koszt, złożoność</td><td id="&gt;|jQ" class="" style="width:117.66666666666667px">Opóźnienia, koszt</td></tr><tr id="21e07f3c-ef0e-80f0-a18d-e203af9fb05b"><th id="pEGB" class="simple-table-header-color simple-table-header" style="width:139.65625px">Zalety</th><td id="ZS~W" class="" style="width:117.66666666666667px">Prostota, niezawodność</td><td id="Y~Jm" class="" style="width:117.66666666666667px">Tanie, proste</td><td id="bmbH" class="" style="width:117.66666666666667px">Uczenie się MAC</td><td id="zDnA" class="" style="width:117.66666666666667px">Wydajność, bezpieczeństwo</td><td id="&gt;|jQ" class="" style="width:117.66666666666667px">Routing, funkcje</td></tr></tbody></table><p id="21e07f3c-ef0e-81dd-aa89-d5bf000e2d20" class="">Kiedy używamy?</p><ul id="21e07f3c-ef0e-8104-a2a2-caeb0d86a8de" class="bulleted-list"><li style="list-style-type:disc">Regenerator:<ul id="21e07f3c-ef0e-8081-ad7f-f7b9297cd725" class="bulleted-list"><li style="list-style-type:circle">chcę przedłużyć zasięg łącza</li></ul><ul id="21e07f3c-ef0e-8088-be80-e2f873a8b947" class="bulleted-list"><li style="list-style-type:circle">chcę połączyć sieci homogeniczne (tego samego rodzaju MAC, LLC)</li></ul></li></ul><ul id="21e07f3c-ef0e-81c1-b79b-d5a76ed339a9" class="bulleted-list"><li style="list-style-type:disc">Koncentrator:<ul id="21e07f3c-ef0e-80a4-9637-f102f1559049" class="bulleted-list"><li style="list-style-type:circle">dla sieci zamkniętych (ze względu na rozgłaszanie na wszystkie porty)</li></ul><ul id="21e07f3c-ef0e-8036-a228-fc82b158abf7" class="bulleted-list"><li style="list-style-type:circle">dla małych obciążeń sieci (małe prawdopodobieństwo kolizji), wówczas nie ma lepszego urządzenia</li></ul><ul id="21e07f3c-ef0e-806f-88ba-caf39bfc7273" class="bulleted-list"><li style="list-style-type:circle">gdy buduję sieć w topologii gwiazdy/będę tworzył wielopoziomową hierarchię</li></ul><ul id="21e07f3c-ef0e-80fb-8710-cb4e603154d2" class="bulleted-list"><li style="list-style-type:circle">chcę łączyć sieci homogeniczne</li></ul><ul id="21e07f3c-ef0e-80d1-a279-f0109bfcd694" class="bulleted-list"><li style="list-style-type:circle">nie dla dużego obciążenia, bo wówczas spore opóźnienia</li></ul><ul id="21e07f3c-ef0e-8039-831d-f6471106554e" class="bulleted-list"><li style="list-style-type:circle">ze względów ekonomicznych - tańsze niż przełącznik</li></ul></li></ul><ul id="21e07f3c-ef0e-81c0-b506-f78f0ffaee56" class="bulleted-list"><li style="list-style-type:disc">Most / Switch:<ul id="21e07f3c-ef0e-80e2-bea3-d14c97161b36" class="bulleted-list"><li style="list-style-type:circle">chcę podzielić domenę kolizyjną na poddomeny (na przykład zapewnić bezkolizyjną komunikację bez łącza full-duplex)</li></ul><ul id="21e07f3c-ef0e-802b-83aa-c3b625f9a31e" class="bulleted-list"><li style="list-style-type:circle">chcę zwiększyć przepustowość sieci k-krotnie</li></ul><ul id="21e07f3c-ef0e-80e4-ad4a-dab7457db97c" class="bulleted-list"><li style="list-style-type:circle">chcę połączyć sieci heterogeniczne</li></ul><ul id="21e07f3c-ef0e-80da-bd82-d18dc0bdc177" class="bulleted-list"><li style="list-style-type:circle">muszę skorzystać z mechanizmu Spanning Tree</li></ul><ul id="21e07f3c-ef0e-800d-a744-c07d2a5755e8" class="bulleted-list"><li style="list-style-type:circle">(przełącznik) w rozproszonych i scentralizowanych sieciach szkieletowych</li></ul><ul id="21e07f3c-ef0e-8080-854e-f56834d1ea54" class="bulleted-list"><li style="list-style-type:circle">(przełącznik) chcę podzielić sieć fizyczną na segmenty logiczne w ramach VLAN</li></ul></li></ul><ul id="21e07f3c-ef0e-8177-be4b-e10a6658af74" class="bulleted-list"><li style="list-style-type:disc">Router:<ul id="21e07f3c-ef0e-8085-b46d-ed98f9d91f36" class="bulleted-list"><li style="list-style-type:circle">chcę rozdzielić domenę rozgłoszeniową</li></ul><ul id="21e07f3c-ef0e-80a4-bdd2-ead30cb96275" class="bulleted-list"><li style="list-style-type:circle">chcę połączyć sieć z siecią WAN</li></ul><ul id="21e07f3c-ef0e-80a7-8c81-d682d88a283e" class="bulleted-list"><li style="list-style-type:circle">chcę dokonać routingu między różnymi VLAN-ami</li></ul><ul id="21e07f3c-ef0e-80b4-bf20-dd1cea0228f4" class="bulleted-list"><li style="list-style-type:circle">nie powinno się nadużywać, bo wolny</li></ul></li></ul><p id="21e07f3c-ef0e-802a-8727-f72a86daae89" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
