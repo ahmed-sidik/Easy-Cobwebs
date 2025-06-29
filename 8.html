@@ -1,0 +1,799 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>8. enable_if</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="22107f3c-ef0e-81bb-aad6-f520ac32ac54" class="page sans"><header><h1 class="page-title">8. enable_if</h1><p class="page-description"></p></header><div class="page-body"><h2 id="22107f3c-ef0e-8156-b501-c056e9e97f2f" class=""><strong>1. Co to jest </strong><code><strong>std::enable_if</strong></code><strong>?</strong></h2><p id="22107f3c-ef0e-81a8-9c7d-d925d288c224" class=""><code>std::enable_if</code> to metaprogramowanie szablonowe w C++, które pozwala na <strong>warunkowe włączanie lub wyłączanie</strong> przeciążeń funkcji i specjalizacji szablonów w zależności od spełnienia określonych warunków. Jest to technika oparta na <strong>SFINAE (Substitution Failure Is Not An Error)</strong>, która pozwala kompilatorowi odrzucić nieodpowiednie szablony bez powodowania błędów.</p><h3 id="22107f3c-ef0e-8114-aafe-d088b28aad65" class=""><strong>Główne zastosowania:</strong></h3><ul id="22107f3c-ef0e-815a-9640-d782d5c7dc6e" class="bulleted-list"><li style="list-style-type:disc">Kontrola przeciążeń funkcji szablonowych.</li></ul><ul id="22107f3c-ef0e-8138-9815-c7211d2e517c" class="bulleted-list"><li style="list-style-type:disc">Ograniczanie typów w szablonach.</li></ul><ul id="22107f3c-ef0e-815e-9709-e264a06d3402" class="bulleted-list"><li style="list-style-type:disc">Implementacja traitów typów.</li></ul><hr id="22107f3c-ef0e-8133-b67b-e456ae1145a5"/><h2 id="22107f3c-ef0e-814b-b998-dc7b8865cb89" class=""><strong>2. Po co wykorzystujemy </strong><code><strong>std::enable_if</strong></code><strong>?</strong></h2><ul id="22107f3c-ef0e-81f0-8071-e15cfbf4fde9" class="bulleted-list"><li style="list-style-type:disc"><strong>Selekcja przeciążeń</strong>: Wybór odpowiedniej wersji funkcji w zależności od typu.</li></ul><ul id="22107f3c-ef0e-81eb-96b6-fe55150b5ced" class="bulleted-list"><li style="list-style-type:disc"><strong>Ograniczanie typów</strong>: Wymuszanie, aby szablon działał tylko dla określonych typów (np. tylko liczby całkowite).</li></ul><ul id="22107f3c-ef0e-8131-a7b4-c01a8c9a81b1" class="bulleted-list"><li style="list-style-type:disc"><strong>Unikanie niejednoznaczności</strong>: Zapobieganie konfliktom między podobnymi szablonami.</li></ul><ul id="22107f3c-ef0e-8133-a041-f8f2a5be625b" class="bulleted-list"><li style="list-style-type:disc"><strong>Zastępowane przez Concepts (C++20)</strong>: W nowoczesnym C++ lepiej używać <strong>Concepts</strong>, ale <code>enable_if</code> jest nadal używany w starszym kodzie.</li></ul><hr id="22107f3c-ef0e-811d-a018-ed0cd57e9005"/><h2 id="22107f3c-ef0e-812a-8e3e-ff18f4ff3b0a" class=""><strong>3. Składnia</strong></h2><h3 id="22107f3c-ef0e-81ac-8cb5-f1383e4e2765" class=""><strong>Podstawowa deklaracja </strong><code><strong>std::enable_if</strong></code></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-818a-a96e-ef11e9ac5940" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">template &lt;bool Condition, typename T = void&gt;  
+struct enable_if;  
+
+// Specjalizacja dla Condition == true  
+template &lt;typename T&gt;  
+struct enable_if&lt;true, T&gt; {  
+    using type = T;  
+};  
+
+// Dla Condition == false - brak definicji `type` → SFINAE</code></pre><h3 id="22107f3c-ef0e-8137-ab41-f960e3fc0cd8" class=""><strong>Użycie </strong><code><strong>enable_if</strong></code><strong> w funkcjach</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-8135-891c-db74385cd275" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">// Przeciążenie dostępne tylko dla typów całkowitych
+template &lt;typename T&gt;
+typename std::enable_if&lt;std::is_integral&lt;T&gt;::value, void&gt;::type
+foo(T x) {
+    std::cout &lt;&lt; &quot;Dla typów całkowitych: &quot; &lt;&lt; x &lt;&lt; &quot;\n&quot;;
+}
+
+// Przeciążenie dostępne tylko dla typów zmiennoprzecinkowych
+template &lt;typename T&gt;
+typename std::enable_if&lt;std::is_floating_point&lt;T&gt;::value, void&gt;::type
+foo(T x) {
+    std::cout &lt;&lt; &quot;Dla typów zmiennoprzecinkowych: &quot; &lt;&lt; x &lt;&lt; &quot;\n&quot;;
+}</code></pre><h3 id="22107f3c-ef0e-8182-8c74-d3435d700c00" class=""><strong>Skrócona wersja z </strong><code><strong>std::enable_if_t</strong></code><strong> (C++14)</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-81a6-a69a-d18a9adfe4a1" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">template &lt;typename T&gt;
+std::enable_if_t&lt;std::is_integral_v&lt;T&gt;, void&gt;  // std::is_integral_v&lt;T&gt; == std::is_integral&lt;T&gt;::value
+bar(T x) {
+    std::cout &lt;&lt; &quot;Tylko dla integral: &quot; &lt;&lt; x &lt;&lt; &quot;\n&quot;;
+}</code></pre><h3 id="22107f3c-ef0e-817d-8eff-f374c2d51305" class=""><code><strong>enable_if</strong></code><strong> w parametrach szablonu</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-8131-a11c-dd3cc53c977c" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">template &lt;typename T, typename = std::enable_if_t&lt;std::is_integral_v&lt;T&gt;&gt;&gt;
+void baz(T x) {
+    std::cout &lt;&lt; &quot;Tylko dla integral (parametr szablonu): &quot; &lt;&lt; x &lt;&lt; &quot;\n&quot;;
+}</code></pre><h3 id="22107f3c-ef0e-8190-a5f9-e93ed3d8810c" class=""><code><strong>enable_if</strong></code><strong> w zwracanym typie</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-810a-b7f8-ddd1142a7c72" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">template &lt;typename T&gt;
+auto qux(T x) -&gt; std::enable_if_t&lt;std::is_floating_point_v&lt;T&gt;, void&gt; {
+    std::cout &lt;&lt; &quot;Tylko dla floating point (zwracany typ): &quot; &lt;&lt; x &lt;&lt; &quot;\n&quot;;
+}</code></pre><hr id="22107f3c-ef0e-81d9-9475-cf5d737b1e3a"/><h2 id="22107f3c-ef0e-816e-b684-d64c93aaa777" class=""><strong>4. Przykłady użycia</strong></h2><h3 id="22107f3c-ef0e-816d-83b3-cafc4da5a5fc" class=""><strong>Przykład 1: Funkcja tylko dla typów całkowitych</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-819f-980e-e7fbdca65bc9" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">#include &lt;iostream&gt;
+#include &lt;type_traits&gt;
+
+template &lt;typename T&gt;
+typename std::enable_if&lt;std::is_integral&lt;T&gt;::value, void&gt;::type
+print_if_integral(T x) {
+    std::cout &lt;&lt; &quot;To jest liczba całkowita: &quot; &lt;&lt; x &lt;&lt; &quot;\n&quot;;
+}
+
+int main() {
+    print_if_integral(42);    // OK
+    // print_if_integral(3.14); // Błąd kompilacji (nie jest integral)
+}</code></pre><h3 id="22107f3c-ef0e-8131-9de0-f49514e6b059" class=""><strong>Przykład 2: Przeciążenia dla różnych kategorii typów</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-8199-9c22-d705dcdcda58" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">#include &lt;iostream&gt;
+#include &lt;type_traits&gt;
+
+// Dla typów całkowitych
+template &lt;typename T&gt;
+std::enable_if_t&lt;std::is_integral_v&lt;T&gt;, void&gt; process(T x) {
+    std::cout &lt;&lt; &quot;Przetwarzam liczbę całkowitą: &quot; &lt;&lt; x &lt;&lt; &quot;\n&quot;;
+}
+
+// Dla typów zmiennoprzecinkowych
+template &lt;typename T&gt;
+std::enable_if_t&lt;std::is_floating_point_v&lt;T&gt;, void&gt; process(T x) {
+    std::cout &lt;&lt; &quot;Przetwarzam liczbę zmiennoprzecinkową: &quot; &lt;&lt; x &lt;&lt; &quot;\n&quot;;
+}
+
+int main() {
+    process(10);      // Wywoła wersję dla integral
+    process(3.14);    // Wywoła wersję dla floating point
+    // process(&quot;text&quot;); // Błąd: brak dopasowania
+}</code></pre><h3 id="22107f3c-ef0e-81c4-8c2d-ec31c10045c2" class=""><strong>Przykład 3: SFINAE w klasach (specjalizacja szablonu)</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-81f3-a2f5-e309bc239291" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">#include &lt;iostream&gt;
+#include &lt;type_traits&gt;
+
+// Bazowy szablon (nieaktywny)
+template &lt;typename T, typename = void&gt;
+struct Processor {
+    static void process() {
+        std::cout &lt;&lt; &quot;Domyślna implementacja\n&quot;;
+    }
+};
+
+// Specjalizacja tylko dla typów iterowalnych (np. vector, list)
+template &lt;typename T&gt;
+struct Processor&lt;T, std::void_t&lt;decltype(std::declval&lt;T&gt;().begin())&gt;&gt; {
+    static void process() {
+        std::cout &lt;&lt; &quot;Typ jest iterowalny!\n&quot;;
+    }
+};
+
+int main() {
+    Processor&lt;int&gt;::process();           // Domyślna implementacja
+    Processor&lt;std::vector&lt;int&gt;&gt;::process(); // &quot;Typ jest iterowalny!&quot;
+}</code></pre><h3 id="22107f3c-ef0e-817a-8c9c-c4becedb3f90" class=""><strong>Przykład 4: </strong><code><strong>enable_if</strong></code><strong> w konstruktorach</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-8136-98ae-cca9605a6194" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">#include &lt;iostream&gt;
+#include &lt;type_traits&gt;
+
+class Wrapper {
+public:
+    // Konstruktor tylko dla typów całkowitych
+    template &lt;typename T&gt;
+    Wrapper(T x, std::enable_if_t&lt;std::is_integral_v&lt;T&gt;, int&gt; = 0) {
+        std::cout &lt;&lt; &quot;Konstruktor dla integral: &quot; &lt;&lt; x &lt;&lt; &quot;\n&quot;;
+    }
+
+    // Konstruktor tylko dla typów wskaźnikowych
+    template &lt;typename T&gt;
+    Wrapper(T* ptr, std::enable_if_t&lt;std::is_pointer_v&lt;T*&gt;, int&gt; = 0) {
+        std::cout &lt;&lt; &quot;Konstruktor dla wskaźników: &quot; &lt;&lt; ptr &lt;&lt; &quot;\n&quot;;
+    }
+};
+
+int main() {
+    Wrapper w1(42);        // OK (integral)
+    int x = 10;
+    Wrapper w2(&amp;x);        // OK (wskaźnik)
+    // Wrapper w3(3.14);    // Błąd: nie jest integral ani wskaźnikiem
+}</code></pre><hr id="22107f3c-ef0e-812d-bd77-e2146f50fd8a"/><h2 id="22107f3c-ef0e-818d-8cdf-e2e0d216b073" class=""><strong>5. Powiązane zagadnienia</strong></h2><h3 id="22107f3c-ef0e-812f-92c6-e210d1c99b67" class=""><strong>SFINAE (Substitution Failure Is Not An Error)</strong></h3><ul id="22107f3c-ef0e-8179-8921-cc63996ed1b1" class="bulleted-list"><li style="list-style-type:disc">Jeśli podstawienie szablonu nie powiedzie się, kompilator <strong>nie zgłasza błędu</strong>, tylko pomija tę specjalizację.</li></ul><ul id="22107f3c-ef0e-8182-963d-d1f503b3538a" class="bulleted-list"><li style="list-style-type:disc">Umożliwia przeciążanie funkcji szablonowych na podstawie cech typów.</li></ul><h3 id="22107f3c-ef0e-819d-a167-e64d33b5bd80" class=""><code><strong>std::void_t</strong></code><strong> (C++17)</strong></h3><ul id="22107f3c-ef0e-81be-9097-c1bb188f92e1" class="bulleted-list"><li style="list-style-type:disc">Uproszczona metaprogramowania SFINAE:</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-8183-88d3-eb2dbf69b5c2" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">template &lt;typename...&gt;
+using void_t = void;</code></pre><ul id="22107f3c-ef0e-8153-8ac8-e159b8f090c1" class="bulleted-list"><li style="list-style-type:disc">Używany do sprawdzania, czy wyrażenie jest poprawne.</li></ul><h3 id="22107f3c-ef0e-81ff-896b-cc25b148f677" class=""><code><strong>if constexpr</strong></code><strong> (C++17)</strong></h3><ul id="22107f3c-ef0e-81ee-8a4b-f2eb6ea23bd2" class="bulleted-list"><li style="list-style-type:disc">Alternatywa dla <code>enable_if</code> w niektórych przypadkach:</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-81e2-952b-c5c7e6252d75" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">template &lt;typename T&gt;
+void process(T x) {
+    if constexpr (std::is_integral_v&lt;T&gt;) {
+        std::cout &lt;&lt; &quot;Integral: &quot; &lt;&lt; x &lt;&lt; &quot;\n&quot;;
+    } else if constexpr (std::is_floating_point_v&lt;T&gt;) {
+        std::cout &lt;&lt; &quot;Floating: &quot; &lt;&lt; x &lt;&lt; &quot;\n&quot;;
+    }
+}</code></pre><h3 id="22107f3c-ef0e-817f-865e-eb1f2d6a2f21" class=""><strong>Concepts (C++20) – nowoczesna alternatywa</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-813c-a7c7-ecdd42184e0f" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">template &lt;std::integral T&gt;
+void better_print(T x) { /* ... */ }  // Czytelniejsze niż enable_if!</code></pre><hr id="22107f3c-ef0e-81cf-96be-ffc56a430718"/><h2 id="22107f3c-ef0e-815e-8b67-d5bc2e5b9c81" class=""><strong>Podsumowanie</strong></h2><table id="22107f3c-ef0e-8135-ad93-c5c7a2a18395" class="simple-table"><tbody><tr id="22107f3c-ef0e-81e4-bd48-f3b2f3ab0a9e"><td id="zmBn" class=""><strong>Cecha</strong></td><td id="InFs" class=""><code>std::enable_if</code></td><td id="Jucf" class=""><strong>Concepts (C++20)</strong></td></tr><tr id="22107f3c-ef0e-812b-b638-f7715977495f"><td id="zmBn" class=""><strong>Czytelność</strong></td><td id="InFs" class="">Niska</td><td id="Jucf" class="">Wysoka</td></tr><tr id="22107f3c-ef0e-8132-9cc7-e0c9d3cacce7"><td id="zmBn" class=""><strong>Zastosowanie</strong></td><td id="InFs" class="">C++11 i nowsze</td><td id="Jucf" class="">Tylko C++20</td></tr><tr id="22107f3c-ef0e-811f-bf09-d4e65ef26f0e"><td id="zmBn" class=""><strong>Łatwość debugowania</strong></td><td id="InFs" class="">Trudne błędy</td><td id="Jucf" class="">Jasne komunikaty</td></tr></tbody></table><ul id="22107f3c-ef0e-8107-a559-e71bf31e5013" class="bulleted-list"><li style="list-style-type:disc"><code>std::enable_if</code> jest potężny, ale ma <strong>złożoną składnię</strong>.</li></ul><ul id="22107f3c-ef0e-8124-b1ff-fe4ef93ee1c0" class="bulleted-list"><li style="list-style-type:disc">W nowym kodzie lepiej używać <strong>Concepts</strong>, ale <code>enable_if</code> jest nadal ważny w legacy codebase.</li></ul><ul id="22107f3c-ef0e-81e2-a71b-f5c102576c13" class="bulleted-list"><li style="list-style-type:disc">SFINAE i <code>void_t</code> są podstawą zaawansowanego metaprogramowania.</li></ul><p id="22107f3c-ef0e-819e-95ff-e185d4a936e6" class="">Jeśli masz możliwość, migruj do <strong>Concepts</strong>! 🚀</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

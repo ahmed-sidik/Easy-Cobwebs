@@ -1,0 +1,703 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>3. Kontenery STL</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="22107f3c-ef0e-816e-b82b-ffec79db1ce9" class="page sans"><header><h1 class="page-title">3. Kontenery STL</h1><p class="page-description"></p></header><div class="page-body"><p id="22107f3c-ef0e-81e0-b14f-dc9b106ba9d3" class="">Zakres zagadnień:<br/>- vector<br/>- map<br/>- unordered_map<br/>- queue<br/>- stack<br/>- heap<br/></p><h1 id="22107f3c-ef0e-81c3-ad86-e3201fc8770e" class=""><strong>Kontenery STL w C++</strong></h1><h2 id="22107f3c-ef0e-817e-b0c9-ea89ed4e1aec" class=""><strong>1. </strong><code><strong>std::vector</strong></code></h2><h3 id="22107f3c-ef0e-81eb-bc49-e78956e14338" class=""><strong>Co to jest?</strong></h3><p id="22107f3c-ef0e-8122-97dd-d2a67468dd57" class="">Dynamiczna tablica o zmiennym rozmiarze, zapewniająca szybki dostęp swobodny.</p><h3 id="22107f3c-ef0e-814d-89e2-db704f2e3341" class=""><strong>Charakterystyka:</strong></h3><ul id="22107f3c-ef0e-8147-822f-c7705259b4c1" class="bulleted-list"><li style="list-style-type:disc"><strong>Dostęp:</strong> O(1) przez operator <code>[]</code></li></ul><ul id="22107f3c-ef0e-8118-a7f4-ca1c81590ed9" class="bulleted-list"><li style="list-style-type:disc"><strong>Wstawianie/usuwanie na końcu:</strong> O(1) (amortyzowane)</li></ul><ul id="22107f3c-ef0e-814a-a0d6-f01f5e1dfb95" class="bulleted-list"><li style="list-style-type:disc"><strong>Wstawianie/usuwanie w środku:</strong> O(n)</li></ul><ul id="22107f3c-ef0e-81e0-b79f-ee8e57b39b5c" class="bulleted-list"><li style="list-style-type:disc"><strong>Realokacja:</strong> Powoduje invalidację wskaźników</li></ul><h3 id="22107f3c-ef0e-819f-af10-e30c040af355" class=""><strong>Składnia:</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-8188-bfd2-cdc9a7d10923" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">std::vector&lt;int&gt; v = {1, 2, 3};
+v.push_back(4);  // Dodanie elementu
+int x = v[2];    // Dostęp</code></pre><h3 id="22107f3c-ef0e-81ab-945f-c4ffe52d8c92" class=""><strong>Zastosowania:</strong></h3><ul id="22107f3c-ef0e-8147-8f76-cd9c1184e62b" class="bulleted-list"><li style="list-style-type:disc">Główny kontener do przechowywania danych</li></ul><ul id="22107f3c-ef0e-813a-943b-fd43764a1e9b" class="bulleted-list"><li style="list-style-type:disc">Gdy potrzebny szybki dostęp indeksowany</li></ul><ul id="22107f3c-ef0e-818f-9528-e0e5e98d04ad" class="bulleted-list"><li style="list-style-type:disc">Przy częstym dodawaniu tylko na końcu</li></ul><h2 id="22107f3c-ef0e-813b-b68f-e8f00fcbf91a" class=""><strong>2. </strong><code><strong>std::map</strong></code></h2><h3 id="22107f3c-ef0e-816d-b2a1-e213525f8469" class=""><strong>Co to jest?</strong></h3><p id="22107f3c-ef0e-815c-bc41-c357fad6e26a" class="">Asocjacyjny kontener przechowujący pary klucz-wartość w formie posortowanego drzewa (zazwyczaj RB-tree).</p><h3 id="22107f3c-ef0e-81df-a0df-ecf312157e9f" class=""><strong>Charakterystyka:</strong></h3><ul id="22107f3c-ef0e-8146-a1fe-d2516cb6accf" class="bulleted-list"><li style="list-style-type:disc"><strong>Złożoność operacji:</strong> O(log n)</li></ul><ul id="22107f3c-ef0e-8108-9f36-ff53b1b32a37" class="bulleted-list"><li style="list-style-type:disc"><strong>Elementy posortowane</strong> według klucza</li></ul><ul id="22107f3c-ef0e-81b1-9155-cf760f44bf56" class="bulleted-list"><li style="list-style-type:disc"><strong>Klucze unikalne</strong></li></ul><h3 id="22107f3c-ef0e-81da-8191-eb95ca8926da" class=""><strong>Składnia:</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-81f3-a6a2-c0d5fe39c0f1" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">#include &lt;map&gt;
+std::map&lt;std::string, int&gt; m;
+m[&quot;apple&quot;] = 5;     // Wstawianie
+int x = m[&quot;apple&quot;]; // Dostęp</code></pre><h3 id="22107f3c-ef0e-8199-b7a7-dbc59a5b7e80" class=""><strong>Zastosowania:</strong></h3><ul id="22107f3c-ef0e-81d8-8218-d7ad47c45475" class="bulleted-list"><li style="list-style-type:disc">Słowniki z wymogiem sortowania</li></ul><ul id="22107f3c-ef0e-819c-94ea-ed1aaff23461" class="bulleted-list"><li style="list-style-type:disc">Gdy potrzebny porządek leksykograficzny</li></ul><ul id="22107f3c-ef0e-81c4-af4d-fa664b05e4f8" class="bulleted-list"><li style="list-style-type:disc">Przy częstym wyszukiwaniu po kluczu</li></ul><h2 id="22107f3c-ef0e-815b-bf20-c4f49c307bef" class=""><strong>3. </strong><code><strong>std::unordered_map</strong></code></h2><h3 id="22107f3c-ef0e-8130-a2a5-d8b47af0e291" class=""><strong>Co to jest?</strong></h3><p id="22107f3c-ef0e-817a-9cf8-f5fc8d43ee62" class="">Asocjacyjny kontener z haszowaniem, przechowujący pary klucz-wartość.</p><h3 id="22107f3c-ef0e-8118-b987-e92c181e6f6e" class=""><strong>Charakterystyka:</strong></h3><ul id="22107f3c-ef0e-819d-ad06-d9f2e7dbb39c" class="bulleted-list"><li style="list-style-type:disc"><strong>Złożoność operacji:</strong> O(1) średnio, O(n) najgorszy przypadek</li></ul><ul id="22107f3c-ef0e-81be-9a83-ee34c3ffdfc8" class="bulleted-list"><li style="list-style-type:disc"><strong>Elementy nieposortowane</strong></li></ul><ul id="22107f3c-ef0e-8136-b7a8-efaab584a50c" class="bulleted-list"><li style="list-style-type:disc"><strong>Klucze unikalne</strong></li></ul><h3 id="22107f3c-ef0e-8104-9a4e-ffba4ebb8bc8" class=""><strong>Składnia:</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-811d-ac77-d0d9b01831ef" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">#include &lt;unordered_map&gt;
+std::unordered_map&lt;std::string, int&gt; um;
+um[&quot;banana&quot;] = 3;   // Wstawianie
+int x = um[&quot;banana&quot;]; // Dostęp</code></pre><h3 id="22107f3c-ef0e-81dd-8204-ed2896c7eb2b" class=""><strong>Zastosowania:</strong></h3><ul id="22107f3c-ef0e-81cc-a24d-e4125dce263e" class="bulleted-list"><li style="list-style-type:disc">Bardzo szybkie wyszukiwanie</li></ul><ul id="22107f3c-ef0e-8164-b035-f6040b780fd8" class="bulleted-list"><li style="list-style-type:disc">Gdy sortowanie nie jest potrzebne</li></ul><ul id="22107f3c-ef0e-8183-899f-ddc8c4b0e08d" class="bulleted-list"><li style="list-style-type:disc">Słowniki z własnym hashem</li></ul><h2 id="22107f3c-ef0e-8161-8f17-cca1ff1e3165" class=""><strong>4. </strong><code><strong>std::queue</strong></code></h2><h3 id="22107f3c-ef0e-811c-850c-dc50334e1aa7" class=""><strong>Co to jest?</strong></h3><p id="22107f3c-ef0e-81ef-bb4c-dc54335ccc21" class="">Kolejka FIFO (First-In-First-Out).</p><h3 id="22107f3c-ef0e-81bf-ad50-d04cbeb66325" class=""><strong>Charakterystyka:</strong></h3><ul id="22107f3c-ef0e-812d-93b9-fec9bdb63ef4" class="bulleted-list"><li style="list-style-type:disc"><strong>Dostęp tylko do początku i końca</strong></li></ul><ul id="22107f3c-ef0e-8139-8cbf-e116e7fae169" class="bulleted-list"><li style="list-style-type:disc"><strong>Brak dostępu swobodnego</strong></li></ul><ul id="22107f3c-ef0e-81b8-8654-f1a70b77a9e6" class="bulleted-list"><li style="list-style-type:disc"><strong>Zwykle implementowana na deque</strong></li></ul><h3 id="22107f3c-ef0e-81ff-b87f-fd1d7fbe0379" class=""><strong>Składnia:</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-81c6-a22b-defbc9c08a90" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">#include &lt;queue&gt;
+std::queue&lt;int&gt; q;
+q.push(1);    // Dodanie
+int x = q.front(); // Podgląd pierwszego
+q.pop();      // Usunięcie pierwszego</code></pre><h3 id="22107f3c-ef0e-81ec-ad89-cc58e3480fa3" class=""><strong>Zastosowania:</strong></h3><ul id="22107f3c-ef0e-8161-ac78-cb88d660ba5d" class="bulleted-list"><li style="list-style-type:disc">Kolejki zadań</li></ul><ul id="22107f3c-ef0e-813a-ac29-e9cfd510f95d" class="bulleted-list"><li style="list-style-type:disc">Przetwarzanie w kolejności przyjścia</li></ul><ul id="22107f3c-ef0e-8124-8195-ca3313c9e135" class="bulleted-list"><li style="list-style-type:disc">Symulacje zdarzeń</li></ul><h2 id="22107f3c-ef0e-81a6-919a-d394f6df1835" class=""><strong>5. </strong><code><strong>std::stack</strong></code></h2><h3 id="22107f3c-ef0e-8107-91c2-c1b3991ae05f" class=""><strong>Co to jest?</strong></h3><p id="22107f3c-ef0e-81ee-bc98-c756f9cab9de" class="">Stos LIFO (Last-In-First-Out).</p><h3 id="22107f3c-ef0e-81a0-b6cb-d017e0a5c413" class=""><strong>Charakterystyka:</strong></h3><ul id="22107f3c-ef0e-81b0-b118-f65893fca5f1" class="bulleted-list"><li style="list-style-type:disc"><strong>Dostęp tylko do wierzchołka</strong></li></ul><ul id="22107f3c-ef0e-813a-a8f8-c1c20afd9d01" class="bulleted-list"><li style="list-style-type:disc"><strong>Brak dostępu swobodnego</strong></li></ul><ul id="22107f3c-ef0e-81b2-8d3f-e9f6ea9d1f6b" class="bulleted-list"><li style="list-style-type:disc"><strong>Zwykle implementowany na vectorze lub deque</strong></li></ul><h3 id="22107f3c-ef0e-81a8-9f1f-e6faeb6c74d0" class=""><strong>Składnia:</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-812c-9a23-ce74ecf72062" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">#include &lt;stack&gt;
+std::stack&lt;int&gt; s;
+s.push(1);    // Dodanie
+int x = s.top(); // Podgląd wierzchołka
+s.pop();      // Usunięcie</code></pre><h3 id="22107f3c-ef0e-81ab-b8fa-eed70e4bd9a6" class=""><strong>Zastosowania:</strong></h3><ul id="22107f3c-ef0e-81de-8cf0-ef64001feca3" class="bulleted-list"><li style="list-style-type:disc">Algorytmy stosowe (np. DFS)</li></ul><ul id="22107f3c-ef0e-8151-9604-f4c24414ce6e" class="bulleted-list"><li style="list-style-type:disc">Odwracanie kolejności</li></ul><ul id="22107f3c-ef0e-8109-802b-d8883532c00f" class="bulleted-list"><li style="list-style-type:disc">Kalkulatory RPN</li></ul><h2 id="22107f3c-ef0e-8108-8268-e768b7e88a83" class=""><strong>6. Kopiec (</strong><code><strong>std::priority_queue</strong></code><strong>)</strong></h2><h3 id="22107f3c-ef0e-8113-9b7b-fd3b631fa17b" class=""><strong>Co to jest?</strong></h3><p id="22107f3c-ef0e-817d-9595-e9c53e855a7c" class="">Kontener implementujący kopiec (domyślnie max-heap).</p><h3 id="22107f3c-ef0e-81b6-ae8b-ca0cb965f078" class=""><strong>Charakterystyka:</strong></h3><ul id="22107f3c-ef0e-815a-a891-d09056ebd7ce" class="bulleted-list"><li style="list-style-type:disc"><strong>Dostęp do największego elementu:</strong> O(1)</li></ul><ul id="22107f3c-ef0e-81d2-bbec-d459a99a1112" class="bulleted-list"><li style="list-style-type:disc"><strong>Wstawianie/usuwanie:</strong> O(log n)</li></ul><ul id="22107f3c-ef0e-8183-bf39-d3c5034861a5" class="bulleted-list"><li style="list-style-type:disc"><strong>Elementy częściowo uporządkowane</strong></li></ul><h3 id="22107f3c-ef0e-8186-b642-c719d43b4277" class=""><strong>Składnia:</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-81da-9eba-e3e5dde3d1a2" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">#include &lt;queue&gt;
+std::priority_queue&lt;int&gt; pq;
+pq.push(3);     // Wstawianie
+int x = pq.top(); // Podgląd maksimum
+pq.pop();       // Usunięcie maksimum</code></pre><h3 id="22107f3c-ef0e-8133-946a-d96e31932661" class=""><strong>Zastosowania:</strong></h3><ul id="22107f3c-ef0e-816e-a969-ff028e3056df" class="bulleted-list"><li style="list-style-type:disc">Kolejki priorytetowe</li></ul><ul id="22107f3c-ef0e-810a-bc45-d85710dee9fe" class="bulleted-list"><li style="list-style-type:disc">Algorytm Dijkstry</li></ul><ul id="22107f3c-ef0e-81ea-bff6-dfecc3fd99db" class="bulleted-list"><li style="list-style-type:disc">Zarządzanie zadaniami z różnymi priorytetami</li></ul><h2 id="22107f3c-ef0e-818a-b748-db087ebf1ede" class=""><strong>Porównanie kontenerów</strong></h2><table id="22107f3c-ef0e-818a-90fb-fd5d32f63894" class="simple-table"><tbody><tr id="22107f3c-ef0e-8108-80f5-fc007da89ca7"><td id="rQxT" class="">Kontener</td><td id="HHTE" class="">Dostęp</td><td id="MwWE" class="">Wstawianie</td><td id="i;~o" class="">Usuwanie</td><td id="@xh^" class="">Sortowanie</td><td id="teBs" class="">Użycie</td></tr><tr id="22107f3c-ef0e-8179-9e94-ef1a0a3ae003"><td id="rQxT" class=""><code>vector</code></td><td id="HHTE" class="">O(1)</td><td id="MwWE" class="">O(n)</td><td id="i;~o" class="">O(n)</td><td id="@xh^" class="">Nie</td><td id="teBs" class="">Główny kontener</td></tr><tr id="22107f3c-ef0e-818b-a76f-f810fa92eabe"><td id="rQxT" class=""><code>map</code></td><td id="HHTE" class="">O(log n)</td><td id="MwWE" class="">O(log n)</td><td id="i;~o" class="">O(log n)</td><td id="@xh^" class="">Tak</td><td id="teBs" class="">Słowniki posortowane</td></tr><tr id="22107f3c-ef0e-81ca-95c7-dd69eab39016"><td id="rQxT" class=""><code>unordered_map</code></td><td id="HHTE" class="">O(1)</td><td id="MwWE" class="">O(1)</td><td id="i;~o" class="">O(1)</td><td id="@xh^" class="">Nie</td><td id="teBs" class="">Szybkie wyszukiwanie</td></tr><tr id="22107f3c-ef0e-81b7-801a-d39478dfede9"><td id="rQxT" class=""><code>queue</code></td><td id="HHTE" class="">O(1)*</td><td id="MwWE" class="">O(1)</td><td id="i;~o" class="">O(1)</td><td id="@xh^" class="">Nie</td><td id="teBs" class="">Kolejka FIFO</td></tr><tr id="22107f3c-ef0e-814e-9930-e1864652e5e6"><td id="rQxT" class=""><code>stack</code></td><td id="HHTE" class="">O(1)*</td><td id="MwWE" class="">O(1)</td><td id="i;~o" class="">O(1)</td><td id="@xh^" class="">Nie</td><td id="teBs" class="">Stos LIFO</td></tr><tr id="22107f3c-ef0e-81e7-8471-f82785364310"><td id="rQxT" class=""><code>priority_queue</code></td><td id="HHTE" class="">O(1)</td><td id="MwWE" class="">O(log n)</td><td id="i;~o" class="">O(log n)</td><td id="@xh^" class="">Częściowe</td><td id="teBs" class="">Kolejka priorytetowa</td></tr></tbody></table><ul id="22107f3c-ef0e-812c-9918-d50f41a512ce" class="bulleted-list"><li style="list-style-type:disc"><ul id="22107f3c-ef0e-81e1-b055-f3808108bb6d" class="bulleted-list"><li style="list-style-type:circle">tylko do odpowiednich elementów (pierwszy/ostatni)</li></ul></li></ul><h2 id="22107f3c-ef0e-813b-9152-c564c105d5ea" class=""><strong>Wybór kontenera - praktyczne wskazówki</strong></h2><ol type="1" id="22107f3c-ef0e-8145-b67d-c1af7cdbe4c7" class="numbered-list" start="1"><li><strong>Domyślny wybór:</strong> <code>vector</code> (chyba że potrzebujesz specjalnych właściwości)</li></ol><ol type="1" id="22107f3c-ef0e-8135-9bcb-dee4357c169a" class="numbered-list" start="2"><li><strong>Potrzebujesz słownika?</strong><ul id="22107f3c-ef0e-81bc-b0e2-e1f7d0e9908a" class="bulleted-list"><li style="list-style-type:disc">Jeśli sortowanie ważne → <code>map</code></li></ul><ul id="22107f3c-ef0e-818a-a850-ddea47a971e6" class="bulleted-list"><li style="list-style-type:disc">Jeśli tylko szybkie wyszukiwanie → <code>unordered_map</code></li></ul></li></ol><ol type="1" id="22107f3c-ef0e-8136-be7a-fc40e362b544" class="numbered-list" start="3"><li><strong>Kolejkowanie zadań:</strong><ul id="22107f3c-ef0e-8103-a5c4-fa214823f115" class="bulleted-list"><li style="list-style-type:disc">FIFO → <code>queue</code></li></ul><ul id="22107f3c-ef0e-8143-92ec-c4da76bf67d9" class="bulleted-list"><li style="list-style-type:disc">Priorytety → <code>priority_queue</code></li></ul></li></ol><ol type="1" id="22107f3c-ef0e-8173-a83e-ebd7cf302806" class="numbered-list" start="4"><li><strong>Odwracanie kolejności/śledzenie historii:</strong> <code>stack</code></li></ol><p id="22107f3c-ef0e-8160-a8fe-f3eee4e9479a" class="">Każdy kontener ma swoje optymalne zastosowania - kluczowe jest zrozumienie ich charakterystyki wydajnościowej! 🚀</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

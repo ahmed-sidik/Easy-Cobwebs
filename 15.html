@@ -1,0 +1,737 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>15. Debugowanie</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="22107f3c-ef0e-814f-bbe5-dd4482b0355a" class="page sans"><header><h1 class="page-title">15. Debugowanie</h1><p class="page-description"></p></header><div class="page-body"><h2 id="22107f3c-ef0e-81ec-b590-e51fb1dfc642" class="">1. Narzędzia do debugowania</h2><h3 id="22107f3c-ef0e-819b-a71e-cd7d73f49fd8" class="">1.1 Debugery</h3><table id="22107f3c-ef0e-81d5-8f04-e4a7c638d4f9" class="simple-table"><tbody><tr id="22107f3c-ef0e-81fb-ad4c-cb474063488a"><td id="lgKO" class="">Narzędzie</td><td id="`;b=" class="">System</td><td id="nBV?" class="">Charakterystyka</td></tr><tr id="22107f3c-ef0e-81a3-bd94-dff1c10f7113"><td id="lgKO" class=""><strong>GDB</strong></td><td id="`;b=" class="">Linux/macOS</td><td id="nBV?" class="">Standard w Unix, tekstowy</td></tr><tr id="22107f3c-ef0e-8137-ad38-db7a6cfb2913"><td id="lgKO" class=""><strong>LLDB</strong></td><td id="`;b=" class="">macOS/Linux</td><td id="nBV?" class="">Następca GDB, integracja z Clang</td></tr><tr id="22107f3c-ef0e-816e-ae71-d32ffc444977"><td id="lgKO" class=""><strong>Visual Studio Debugger</strong></td><td id="`;b=" class="">Windows</td><td id="nBV?" class="">Graficzny, zaawansowane funkcje</td></tr><tr id="22107f3c-ef0e-81cf-8b14-fe5833853f9d"><td id="lgKO" class=""><strong>CDB</strong></td><td id="`;b=" class="">Windows</td><td id="nBV?" class="">Debugger konsolowy Microsoftu</td></tr></tbody></table><h3 id="22107f3c-ef0e-81e7-b965-f9cf5616763f" class="">1.2 Kompilacja do debugowania</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-8107-843a-e0754ace7b31" class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">g++ -g -O0 -Wall -Wextra program.cpp -o program</code></pre><ul id="22107f3c-ef0e-8123-b09f-e674f7d64029" class="bulleted-list"><li style="list-style-type:disc"><code>g</code>: Generuje informacje debugowe</li></ul><ul id="22107f3c-ef0e-8159-aaa7-c3c3b93122d9" class="bulleted-list"><li style="list-style-type:disc"><code>O0</code>: Wyłącza optymalizacje (dla lepszego debugowania)</li></ul><ul id="22107f3c-ef0e-819a-9621-dd6b3a51893d" class="bulleted-list"><li style="list-style-type:disc"><code>Wall -Wextra</code>: Włącza ostrzeżenia</li></ul><hr id="22107f3c-ef0e-813e-a2cb-d0764214cdae"/><h2 id="22107f3c-ef0e-812e-9095-f3d9862feb04" class="">2. Podstawowe komendy GDB/LLDB</h2><h3 id="22107f3c-ef0e-812b-9f0e-fdb718343dfd" class="">2.1 Uruchamianie</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-817f-b3b3-f3432137d423" class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">gdb ./program      # GDBlldb ./program     # LLDB</code></pre><h3 id="22107f3c-ef0e-81a0-b068-e4e89ff336d4" class="">2.2 Podstawowe komendy</h3><table id="22107f3c-ef0e-810b-a0bb-c805755a5119" class="simple-table"><tbody><tr id="22107f3c-ef0e-8139-a111-fa6cce1b3450"><td id="v=Kp" class="">Komenda</td><td id="tlCY" class="">GDB</td><td id="aBWe" class="">LLDB</td><td id="j\?W" class="">Opis</td></tr><tr id="22107f3c-ef0e-81e3-93f9-f826d0402df2"><td id="v=Kp" class="">Uruchom program</td><td id="tlCY" class=""><code>run</code></td><td id="aBWe" class=""><code>run</code></td><td id="j\?W" class="">Start programu</td></tr><tr id="22107f3c-ef0e-8189-9546-fa4b5802add9"><td id="v=Kp" class="">Ustaw breakpoint</td><td id="tlCY" class=""><code>break funkcja</code></td><td id="aBWe" class=""><code>b funkcja</code></td><td id="j\?W" class="">Breakpoint na funkcji</td></tr><tr id="22107f3c-ef0e-8114-aa87-d2d0a13cdc15"><td id="v=Kp" class="">Kontynuuj</td><td id="tlCY" class=""><code>continue</code></td><td id="aBWe" class=""><code>continue</code></td><td id="j\?W" class="">Kontynuuj wykonanie</td></tr><tr id="22107f3c-ef0e-8190-89ee-e61ae02ff78c"><td id="v=Kp" class="">Krok po kroku</td><td id="tlCY" class=""><code>step</code></td><td id="aBWe" class=""><code>step</code></td><td id="j\?W" class="">Wejdź do funkcji</td></tr><tr id="22107f3c-ef0e-819d-a8ef-ccbae685d380"><td id="v=Kp" class="">Następna linia</td><td id="tlCY" class=""><code>next</code></td><td id="aBWe" class=""><code>next</code></td><td id="j\?W" class="">Przejdź do następnej linii</td></tr><tr id="22107f3c-ef0e-8112-a62b-dd077f7596cb"><td id="v=Kp" class="">Wyświetl zmienną</td><td id="tlCY" class=""><code>print x</code></td><td id="aBWe" class=""><code>p x</code></td><td id="j\?W" class="">Pokaż wartość zmiennej</td></tr><tr id="22107f3c-ef0e-81ac-adb9-f9e57899bfd3"><td id="v=Kp" class="">Backtrace</td><td id="tlCY" class=""><code>bt</code></td><td id="aBWe" class=""><code>bt</code></td><td id="j\?W" class="">Pokazuje stos wywołań</td></tr><tr id="22107f3c-ef0e-8195-b796-c2e6b05645f9"><td id="v=Kp" class="">Wyjście</td><td id="tlCY" class=""><code>quit</code></td><td id="aBWe" class=""><code>quit</code></td><td id="j\?W" class="">Zamknij debugger</td></tr></tbody></table><hr id="22107f3c-ef0e-8162-a7e6-f8dbba8b96be"/><h2 id="22107f3c-ef0e-81b1-a730-d0a2e30da527" class="">3. Zaawansowane techniki debugowania</h2><h3 id="22107f3c-ef0e-81b8-8bb0-ede6e0835626" class="">3.1 Warunkowe breakpointy</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-814c-a483-ce0ca4484064" class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">break plik.cpp:45 if x == 42  # GDBb plik.cpp:45 -c &quot;x == 42&quot;    # LLDB</code></pre><h3 id="22107f3c-ef0e-8104-88cd-e25f4f8899fb" class="">3.2 Watchpointy (śledzenie zmiennych)</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-81a9-8e5f-dc62e3144ba6" class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">watch x                       # GDB/LLDBwatch *(int*)0x7ffeedf123     # Śledzenie adresu pamięci</code></pre><h3 id="22107f3c-ef0e-81b9-ac8d-efd8aade113d" class="">3.3 Debugowanie wielowątkowe</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-8148-b670-c212f6ff4ece" class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">info threads                  # GDBthread info                   # LLDBthread apply all bt           # Backtrace wszystkich wątków</code></pre><h3 id="22107f3c-ef0e-8118-8baa-ed6afdd41ffe" class="">3.4 Debugowanie z core dump</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-812c-8d7c-d186619df523" class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">gdb ./program core            # Analiza zrzutu pamięci</code></pre><hr id="22107f3c-ef0e-81e2-bd3f-c79aae05c42d"/><h2 id="22107f3c-ef0e-812f-9cfe-dab5b7a443fe" class="">4. Debugowanie w IDE</h2><h3 id="22107f3c-ef0e-8103-994c-d99276aff03f" class="">4.1 Visual Studio Code</h3><ol type="1" id="22107f3c-ef0e-8167-bee4-ffb3b4221815" class="numbered-list" start="1"><li>Instalacja rozszerzenia <strong>C/C++</strong></li></ol><ol type="1" id="22107f3c-ef0e-8189-8cc0-e55627382f89" class="numbered-list" start="2"><li>Konfiguracja <code>launch.json</code>:</li></ol><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-8172-8327-ddd11236fc7a" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">{
+    &quot;version&quot;: &quot;0.2.0&quot;,
+    &quot;configurations&quot;: [
+        {
+            &quot;name&quot;: &quot;Debug C++&quot;,
+            &quot;type&quot;: &quot;cppdbg&quot;,
+            &quot;request&quot;: &quot;launch&quot;,
+            &quot;program&quot;: &quot;${workspaceFolder}/program&quot;,
+            &quot;args&quot;: [],
+            &quot;stopAtEntry&quot;: false,
+            &quot;cwd&quot;: &quot;${workspaceFolder}&quot;,
+            &quot;environment&quot;: [],
+            &quot;externalConsole&quot;: false,
+            &quot;MIMode&quot;: &quot;gdb&quot;,
+            &quot;setupCommands&quot;: [
+                {
+                    &quot;description&quot;: &quot;Enable pretty-printing&quot;,
+                    &quot;text&quot;: &quot;-enable-pretty-printing&quot;,
+                    &quot;ignoreFailures&quot;: true
+                }
+            ]
+        }
+    ]
+}</code></pre><h3 id="22107f3c-ef0e-81f2-86f9-c16308cacd35" class="">4.2 CLion</h3><ul id="22107f3c-ef0e-815d-9efb-dbdd6c3c4c2b" class="bulleted-list"><li style="list-style-type:disc">Zintegrowany debuger z wizualizacją zmiennych</li></ul><ul id="22107f3c-ef0e-8148-b3a1-d1e9034af308" class="bulleted-list"><li style="list-style-type:disc">Obsługa GDB, LLDB, CDB</li></ul><ul id="22107f3c-ef0e-817a-95ea-f7669f381369" class="bulleted-list"><li style="list-style-type:disc">Debugowanie zdalne</li></ul><hr id="22107f3c-ef0e-8155-9cc9-efc57a45adc5"/><h2 id="22107f3c-ef0e-817d-9e7b-eb194b8ce640" class="">5. Techniki debugowania kodu</h2><h3 id="22107f3c-ef0e-8129-97bf-d6c0831fbef5" class="">5.1 Logowanie debugowe</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-81bd-8bfd-fc07dc8acdd7" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">#ifdef DEBUG
+#define DEBUG_LOG(x) std::cerr &lt;&lt; x &lt;&lt; &#x27;\n&#x27;
+#else
+#define DEBUG_LOG(x)
+#endif
+
+void funkcja() {
+    DEBUG_LOG(&quot;Wejście do funkcji&quot;);
+    // ...
+    DEBUG_LOG(&quot;Wyjście z funkcji&quot;);
+}</code></pre><h3 id="22107f3c-ef0e-8197-8a33-e78405bbec32" class="">5.2 Asercje</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-81cb-9981-ca0b0163e552" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">#include &lt;cassert&gt;
+
+void process(int* data) {
+    assert(data != nullptr &amp;&amp; &quot;Data cannot be null&quot;);
+    // ...
+}</code></pre><h3 id="22107f3c-ef0e-81cb-82ea-d67db6c56aa2" class="">5.3 Debugowanie RAII</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-8153-bde7-ed20a2b7e1a6" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">class DebugTimer {
+public:
+    DebugTimer(const std::string&amp; msg) : msg(msg), start(std::chrono::high_resolution_clock::now()) {}
+    ~DebugTimer() {
+        auto end = std::chrono::high_resolution_clock::now();
+        std::cout &lt;&lt; msg &lt;&lt; &quot;: &quot; &lt;&lt; std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(end-start).count() &lt;&lt; &quot;ms\n&quot;;
+    }
+private:
+    std::string msg;
+    std::chrono::time_point&lt;std::chrono::high_resolution_clock&gt; start;
+};
+
+void funkcja() {
+    DebugTimer timer(&quot;Czas wykonania funkcji&quot;);
+    // ...
+}</code></pre><hr id="22107f3c-ef0e-8156-a89d-dc0ecd87d898"/><h2 id="22107f3c-ef0e-81e3-b229-c75276fda924" class="">6. Narzędzia diagnostyczne</h2><h3 id="22107f3c-ef0e-81fb-bb58-f5e4c5768b6e" class="">6.1 Sanitizers</h3><table id="22107f3c-ef0e-819b-9f35-c0b3ae480737" class="simple-table"><tbody><tr id="22107f3c-ef0e-81ef-95a6-f802e0551a6e"><td id="ZJZo" class="">Sanitizer</td><td id="VDSt" class="">Wykrywa</td><td id="J@wT" class="">Kompilacja</td></tr><tr id="22107f3c-ef0e-81d0-9a52-dca055df6e44"><td id="ZJZo" class=""><strong>AddressSanitizer</strong></td><td id="VDSt" class="">Błędy pamięci</td><td id="J@wT" class=""><code>-fsanitize=address</code></td></tr><tr id="22107f3c-ef0e-814c-940e-d112e41ac53c"><td id="ZJZo" class=""><strong>UndefinedBehavior</strong></td><td id="VDSt" class="">Niezdefiniowane zachowania</td><td id="J@wT" class=""><code>-fsanitize=undefined</code></td></tr><tr id="22107f3c-ef0e-8194-9d3a-cea876dd08b8"><td id="ZJZo" class=""><strong>ThreadSanitizer</strong></td><td id="VDSt" class="">Wyścigi w wątkach</td><td id="J@wT" class=""><code>-fsanitize=thread</code></td></tr></tbody></table><p id="22107f3c-ef0e-8142-86fc-ef2f5a34bbae" class="">Przykład użycia:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-815d-a455-dab9eecfe84d" class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">g++ -fsanitize=address -g program.cpp -o program</code></pre><h3 id="22107f3c-ef0e-8180-abff-fd97e9d0da2d" class="">6.2 Valgrind</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-8150-923c-ca66d8cc076d" class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">valgrind --leak-check=full ./program</code></pre><ul id="22107f3c-ef0e-81da-bb59-fc7328750023" class="bulleted-list"><li style="list-style-type:disc">Wykrywa wycieki pamięci</li></ul><ul id="22107f3c-ef0e-81af-af36-c796d956b712" class="bulleted-list"><li style="list-style-type:disc">Analiza użycia pamięci</li></ul><ul id="22107f3c-ef0e-8135-b89a-ec176498043c" class="bulleted-list"><li style="list-style-type:disc">Profilowanie cache</li></ul><h3 id="22107f3c-ef0e-818a-add3-dc6194f781a6" class="">6.3 Static Analyzers</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-8135-ba62-c6115f705824" class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">clang-tidy --checks=* program.cpp
+cppcheck --enable=all program.cpp</code></pre><hr id="22107f3c-ef0e-81a5-a112-dc4972ea3c36"/><h2 id="22107f3c-ef0e-81cb-9e17-ee5f39b52980" class="">7. Debugowanie zaawansowanych problemów</h2><h3 id="22107f3c-ef0e-8108-9027-ce1cd3c3f144" class="">7.1 Wyścigi (Race Conditions)</h3><ol type="1" id="22107f3c-ef0e-8141-8cc1-c3fb31c83eaf" class="numbered-list" start="1"><li>Kompiluj z <code>fsanitize=thread</code></li></ol><ol type="1" id="22107f3c-ef0e-816b-896b-ecec92e92484" class="numbered-list" start="2"><li>Użyj ThreadSanitizer</li></ol><ol type="1" id="22107f3c-ef0e-819f-b9ad-c6a74deb0b7b" class="numbered-list" start="3"><li>Debuguj z watchpointami na współdzielonych danych</li></ol><h3 id="22107f3c-ef0e-8190-8269-cfd8ead41b7e" class="">7.2 Wycieki pamięci</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-811e-a98e-c9d4afdfc712" class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">valgrind --leak-check=full --show-leak-kinds=all ./program</code></pre><h3 id="22107f3c-ef0e-81e3-890d-efe80b3070a8" class="">7.3 Deadlocki</h3><ol type="1" id="22107f3c-ef0e-8188-8e0b-ffff441b1d26" class="numbered-list" start="1"><li>Użyj <code>bt full</code> w debuggerze</li></ol><ol type="1" id="22107f3c-ef0e-8130-95f9-c12e2714d3fd" class="numbered-list" start="2"><li>Analizuj backtrace wszystkich wątków</li></ol><ol type="1" id="22107f3c-ef0e-8176-ab61-c05a3e369648" class="numbered-list" start="3"><li>Szukaj wzorców blokowania muteksów</li></ol><hr id="22107f3c-ef0e-81d8-aa72-e214af2a8639"/><h2 id="22107f3c-ef0e-8166-884b-e412b63c70ee" class="">8. Debugowanie w praktyce - case study</h2><h3 id="22107f3c-ef0e-81c9-9196-efe28f8b6e3b" class="">8.1 Segmentacja fault (SIGSEGV)</h3><ol type="1" id="22107f3c-ef0e-81c9-9a34-e3342f664076" class="numbered-list" start="1"><li>Uruchom z debuggerem</li></ol><ol type="1" id="22107f3c-ef0e-812b-b62e-e357d66891eb" class="numbered-list" start="2"><li>Po crashu wykonaj <code>bt</code> (backtrace)</li></ol><ol type="1" id="22107f3c-ef0e-810b-8f51-fe90c4d08183" class="numbered-list" start="3"><li>Sprawdź wartości wskaźników przed crash-em</li></ol><ol type="1" id="22107f3c-ef0e-8168-a8e2-e49ce3d25ae7" class="numbered-list" start="4"><li>Użyj AddressSanitizer</li></ol><h3 id="22107f3c-ef0e-81d5-a5b3-f1884bd95b72" class="">8.2 Nieskończona pętla</h3><ol type="1" id="22107f3c-ef0e-810a-bee8-d0946e959148" class="numbered-list" start="1"><li>Wstrzymaj program (Ctrl+C w debuggerze)</li></ol><ol type="1" id="22107f3c-ef0e-8130-a5fb-ebf673af7d69" class="numbered-list" start="2"><li>Sprawdź backtrace</li></ol><ol type="1" id="22107f3c-ef0e-81d5-a4ae-d15fca5c780a" class="numbered-list" start="3"><li>Zbadaj warunki pętli</li></ol><ol type="1" id="22107f3c-ef0e-81b5-a5d7-cd6ff9c1af72" class="numbered-list" start="4"><li>Użyj watchpointów na zmiennych sterujących</li></ol><h3 id="22107f3c-ef0e-818d-b7a1-f5afc08cf37e" class="">8.3 Nieprawidłowe wyniki</h3><ol type="1" id="22107f3c-ef0e-8126-acb1-d9c3ae708271" class="numbered-list" start="1"><li>Ustaw breakpointy w kluczowych miejscach</li></ol><ol type="1" id="22107f3c-ef0e-8188-9c2b-d4b5eac78ef9" class="numbered-list" start="2"><li>Śledź wartości zmiennych</li></ol><ol type="1" id="22107f3c-ef0e-81fa-a2d7-e5d8fc4d4f6f" class="numbered-list" start="3"><li>Sprawdź przypadki brzegowe</li></ol><ol type="1" id="22107f3c-ef0e-816c-9ac7-c6b679195fb5" class="numbered-list" start="4"><li>Użyj asercji i testów jednostkowych</li></ol><hr id="22107f3c-ef0e-8190-a308-e75d9429cf86"/><h2 id="22107f3c-ef0e-810f-b32e-f1c712cd462b" class="">9. Najlepsze praktyki debugowania</h2><ol type="1" id="22107f3c-ef0e-81b7-8164-f3555bc6d17c" class="numbered-list" start="1"><li><strong>Reprodukowalność</strong>: Zawsze miej sposób na reprodukcję błędu</li></ol><ol type="1" id="22107f3c-ef0e-811b-82d6-c5a6e475e5da" class="numbered-list" start="2"><li><strong>Divide and Conquer</strong>: Zawężaj obszar poszukiwań</li></ol><ol type="1" id="22107f3c-ef0e-8176-a460-e9f0b9c6140a" class="numbered-list" start="3"><li><strong>Binary Search</strong>: W kodzie użyj metody połowienia</li></ol><ol type="1" id="22107f3c-ef0e-81d4-a53e-e985866141ac" class="numbered-list" start="4"><li><strong>Rubber Duck Debugging</strong>: Opisz problem komuś/czemuś (nawet kaczce)</li></ol><ol type="1" id="22107f3c-ef0e-81a6-ad3d-c1116bdfd4ec" class="numbered-list" start="5"><li><strong>Version Bisect</strong>: Użyj git bisect do znalezienia wprowadzającej błąd zmiany</li></ol><ol type="1" id="22107f3c-ef0e-81fb-9b05-eae13c0044f0" class="numbered-list" start="6"><li><strong>Minimal Working Example</strong>: Stwórz minimalny kod reprodukujący problem</li></ol><ol type="1" id="22107f3c-ef0e-816a-894d-c334b99eb7e9" class="numbered-list" start="7"><li><strong>Zapisuj swoje kroki</strong>: Dokumentuj co już sprawdziłeś</li></ol><hr id="22107f3c-ef0e-813b-a090-d2c3240afc53"/><p id="22107f3c-ef0e-817b-b0b0-ee3a81d85e3b" class="">Debugowanie to nieodłączna część procesu rozwoju oprogramowania. Im lepiej opanujesz narzędzia i techniki debugowania, tym szybciej będziesz identyfikować i naprawiać problemy w kodzie. Pamiętaj, że dobry programista nie to taki, który nie popełnia błędów, ale taki, który potrafi je skutecznie znajdować i naprawiać.</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

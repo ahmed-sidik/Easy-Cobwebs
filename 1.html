@@ -1,0 +1,712 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>1. Inteligentne wskazniki i referencje</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="22107f3c-ef0e-8171-bb84-fb27e693bbd8" class="page sans"><header><h1 class="page-title">1. Inteligentne wskazniki i referencje</h1><p class="page-description"></p></header><div class="page-body"><p id="22107f3c-ef0e-81d2-9814-da5e2b3d0755" class="">Zakres zagadnień:<br/>- unique_ptr, weak_ptr, shared_ptr, auto_ptr<br/>- std::move, std::swap, std::copy<br/>- rvalue, lvalue<br/>- dynamiczna alokacja i dealokacja pamięci<br/></p><h2 id="22107f3c-ef0e-81ed-9a4f-c88d17220f6e" class=""><strong>1. Inteligentne wskaźniki</strong></h2><h3 id="22107f3c-ef0e-814c-9985-d79d3bdc8de0" class=""><code><strong>std::unique_ptr</strong></code></h3><p id="22107f3c-ef0e-8105-b332-d48fb388bff9" class=""><strong>Co to jest?</strong></p><p id="22107f3c-ef0e-8154-84e4-f314012b6291" class="">- Wyłączny właściciel zasobu (nie można go kopiować, tylko przenosić).</p><p id="22107f3c-ef0e-811a-ac3f-d2b4cb542dd0" class="">- Automatycznie zwalnia pamięć przy zniszczeniu.</p><p id="22107f3c-ef0e-81ae-bfd4-f8e41854c92d" class=""><strong>Po co używać?</strong></p><p id="22107f3c-ef0e-819b-b57f-f4e15404e4e7" class="">- Bezpieczne zarządzanie pamięcią bez wycieków.</p><p id="22107f3c-ef0e-813b-b02e-fa1b2d5b35d3" class="">- Lepsza wydajność niż <code>shared_ptr</code> (brak narzutu licznika referencji).</p><p id="22107f3c-ef0e-8139-b19e-e672020f0528" class=""><strong>Składnia:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-81df-b14b-d8537e897ad7" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">#include &lt;memory&gt;  
+
+std::unique_ptr&lt;T&gt; ptr(new T);  // Stara wersja (C++11)  
+auto ptr = std::make_unique&lt;T&gt;(); // Nowoczesna wersja (C++14)  
+
+// Przenoszenie własności  
+std::unique_ptr&lt;T&gt; ptr2 = std::move(ptr);  </code></pre><p id="22107f3c-ef0e-817b-a4cb-de1df91b175b" class=""><strong>Przykład:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-818b-b71b-f805104a586d" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">auto resource = std::make_unique&lt;int&gt;(42);
+std::cout &lt;&lt; *resource &lt;&lt; &quot;\n&quot;;  // Dereferencja</code></pre><hr id="22107f3c-ef0e-81f4-9fe3-e7d40b15a753"/><h3 id="22107f3c-ef0e-8105-a24f-d0e6127402ac" class=""><code><strong>std::shared_ptr</strong></code></h3><p id="22107f3c-ef0e-817d-aa0b-e053111952eb" class=""><strong>Co to jest?</strong></p><p id="22107f3c-ef0e-818f-831e-dd51867a5766" class="">- Współdzielony wskaźnik z licznikiem referencji.</p><p id="22107f3c-ef0e-81f5-a69c-d125c18feeac" class="">- Zasób jest zwalniany, gdy ostatni <code>shared_ptr</code> jest niszczony.</p><p id="22107f3c-ef0e-81dc-b28f-ea40f9fff219" class=""><strong>Po co używać?</strong></p><p id="22107f3c-ef0e-8189-b9e0-c497835617cd" class="">- Gdy wiele obiektów musi współdzielić ten sam zasób.</p><p id="22107f3c-ef0e-81be-9851-dec5ba682f10" class=""><strong>Składnia:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-81ba-ae25-ef8ef2dbd169" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">auto ptr = std::make_shared&lt;T&gt;(); // Zalecane  
+std::shared_ptr&lt;T&gt; ptr2(new T);   // Alternatywa  
+
+// Kopiowanie zwiększa licznik referencji  
+std::shared_ptr&lt;T&gt; ptr3 = ptr2;  </code></pre><p id="22107f3c-ef0e-81cf-8c69-e48a17945ec8" class=""><strong>Przykład:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-8162-b9ba-d3d53ffd0216" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">auto shared = std::make_shared&lt;std::string&gt;(&quot;Hello&quot;);
+auto shared2 = shared;  // Licznik referencji = 2</code></pre><hr id="22107f3c-ef0e-8135-8bf4-c136d56ce6df"/><h3 id="22107f3c-ef0e-814f-b222-f1377f900a0b" class=""><code><strong>std::weak_ptr</strong></code></h3><p id="22107f3c-ef0e-81bb-8db6-caacf41721bb" class=""><strong>Co to jest?</strong></p><p id="22107f3c-ef0e-8131-9f6b-c0ad41773834" class="">- Słaba referencja do obiektu zarządzanego przez <code>shared_ptr</code>.</p><p id="22107f3c-ef0e-81e6-8737-d76b92246746" class="">- Nie zwiększa licznika referencji.</p><p id="22107f3c-ef0e-8175-9e89-ff9f3c18f833" class=""><strong>Po co używać?</strong></p><p id="22107f3c-ef0e-81b5-92c5-de2931185886" class="">- Zapobieganie cyklom referencji (np. w strukturze grafów).</p><p id="22107f3c-ef0e-81ab-86d3-e885c9ff01e4" class=""><strong>Składnia:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-81b1-b76e-c3ffc1bb36d1" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">std::weak_ptr&lt;T&gt; weak = shared_ptr;  
+
+// Konwersja do shared_ptr (jeśli obiekt jeszcze istnieje)  
+if (auto locked = weak.lock()) {  
+    // Użyj locked jako shared_ptr  
+}  </code></pre><p id="22107f3c-ef0e-8182-a56c-c889fc76a24a" class=""><strong>Przykład:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-81fb-86a3-ca3b91414db3" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">auto shared = std::make_shared&lt;int&gt;(42);  
+std::weak_ptr&lt;int&gt; weak = shared;  
+
+if (auto temp = weak.lock()) {  
+    std::cout &lt;&lt; *temp &lt;&lt; &quot;\n&quot;;  
+}  </code></pre><hr id="22107f3c-ef0e-810a-a7fb-f97e3ba6a659"/><h3 id="22107f3c-ef0e-8123-951e-dd468c7e3684" class=""><code><strong>std::auto_ptr</strong></code> (przestarzałe, C++98/03)</h3><ul id="22107f3c-ef0e-8130-be50-cf0e22be184f" class="bulleted-list"><li style="list-style-type:disc">Zastąpione przez <code>std::unique_ptr</code>.</li></ul><ul id="22107f3c-ef0e-815a-b8bf-ff7edbc81f63" class="bulleted-list"><li style="list-style-type:disc">Niebezpieczny (niejawna semantyka przenoszenia).</li></ul><hr id="22107f3c-ef0e-81b4-a37c-f60892e208f4"/><h2 id="22107f3c-ef0e-81a6-a08b-f1c0c1a81846" class=""><strong>2. Operacje na wskaźnikach</strong></h2><h3 id="22107f3c-ef0e-81ab-8c3a-da4c03bb8909" class=""><code><strong>std::move</strong></code></h3><ul id="22107f3c-ef0e-81b2-88d9-f86b2a112d68" class="bulleted-list"><li style="list-style-type:disc">Przekształca obiekt w <strong>rvalue</strong>, umożliwiając przenoszenie zasobów.</li></ul><ul id="22107f3c-ef0e-8122-ad72-d6e6cf7854a3" class="bulleted-list"><li style="list-style-type:disc">Używane z <code>unique_ptr</code>, <code>std::vector</code> itp.</li></ul><p id="22107f3c-ef0e-813f-8c9e-d0932fa9738a" class=""><strong>Przykład:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-8194-ad84-e6398d84aa1b" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">auto ptr1 = std::make_unique&lt;int&gt;(10);  
+auto ptr2 = std::move(ptr1);  // ptr1 jest teraz nullptr </code></pre><h3 id="22107f3c-ef0e-81f4-8b01-c03fa3827a5e" class=""><code><strong>std::swap</strong></code></h3><ul id="22107f3c-ef0e-816a-8965-dbbff5b56930" class="bulleted-list"><li style="list-style-type:disc">Zamienia zawartości dwóch obiektów.</li></ul><p id="22107f3c-ef0e-8178-921d-fcbb45bf3526" class=""><strong>Przykład:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-814a-9238-d10b59aaf9d2" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">std::unique_ptr&lt;int&gt; a(new int(5));  
+std::unique_ptr&lt;int&gt; b(new int(10));  
+std::swap(a, b);  // a ma 10, b ma 5 </code></pre><h3 id="22107f3c-ef0e-8187-8eed-da9fa3dd8fe2" class=""><code><strong>std::copy</strong></code></h3><ul id="22107f3c-ef0e-810f-8319-f4676aa2186a" class="bulleted-list"><li style="list-style-type:disc">Kopiuje zakres elementów (ale <strong>nie działa z </strong><code><strong>unique_ptr</strong></code><strong>!</strong>).</li></ul><hr id="22107f3c-ef0e-8186-a2cd-ff8ec93f6037"/><h2 id="22107f3c-ef0e-81c7-866e-d59fe5220b57" class=""><strong>3. Rvalue vs Lvalue</strong></h2><table id="22107f3c-ef0e-8121-800c-f52e7d0b724b" class="simple-table"><tbody><tr id="22107f3c-ef0e-8179-aab2-f9cf268cb718"><td id="}?zr" class=""><strong>Lvalue</strong></td><td id="BcBQ" class=""><strong>Rvalue</strong></td></tr><tr id="22107f3c-ef0e-8161-bded-ed703a5b4296"><td id="}?zr" class="">Ma adres w pamięci (<code>&amp;x</code> działa).</td><td id="BcBQ" class="">Tymczasowy obiekt (np. wynik funkcji).</td></tr><tr id="22107f3c-ef0e-8118-a9bc-c97178451053"><td id="}?zr" class="">Może stać po lewej stronie <code>=</code>.</td><td id="BcBQ" class="">Zwykle po prawej stronie <code>=</code>.</td></tr><tr id="22107f3c-ef0e-81d4-8478-ffeb3b5d5131"><td id="}?zr" class="">Przykład: <code>int x; x = 5;</code></td><td id="BcBQ" class="">Przykład: <code>5</code>, <code>x + y</code>, <code>std::move(x)</code></td></tr></tbody></table><p id="22107f3c-ef0e-81fc-bd6b-c968b48e33a0" class=""><code><strong>std::move</strong></code><strong> konwertuje lvalue na rvalue</strong>, umożliwiając przenoszenie zasobów.</p><hr id="22107f3c-ef0e-81e9-ba4b-d0a435bdbc71"/><h2 id="22107f3c-ef0e-8152-aec5-fa47a18b9d25" class=""><strong>4. Dynamiczna alokacja i dealokacja</strong></h2><h3 id="22107f3c-ef0e-8109-ba9a-d9f793d25b10" class=""><strong>Tradycyjne zarządzanie (niezalecane)</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-81a8-b119-c572aa93a116" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">int* arr = new int[100];  // Alokacja  
+delete[] arr;             // Dealokacja (łatwo zapomnieć!) </code></pre><h3 id="22107f3c-ef0e-81bc-9d47-c575eeb6c2a1" class=""><strong>Z inteligentnymi wskaźnikami</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-8130-a4e3-ce7496b0b23e" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">// Alokacja tablicy  
+auto arr = std::make_unique&lt;int[]&gt;(100);  
+
+// Nie trzeba ręcznie zwalniać! </code></pre><hr id="22107f3c-ef0e-817f-87d4-e88d5db94168"/><h2 id="22107f3c-ef0e-8143-8a7e-f9ad6b715d08" class=""><strong>Podsumowanie</strong></h2><table id="22107f3c-ef0e-81f0-b1c2-c3ba6b53a366" class="simple-table"><tbody><tr id="22107f3c-ef0e-81bb-9a8b-ddef6d1a006b"><td id="]_fA" class=""><strong>Wskaźnik</strong></td><td id="s|pI" class=""><strong>Użycie</strong></td><td id="`Il[" class=""><strong>Zalety</strong></td></tr><tr id="22107f3c-ef0e-8153-bf13-f3a486f3d3e2"><td id="]_fA" class=""><code>unique_ptr</code></td><td id="s|pI" class="">Wyłączna własność.</td><td id="`Il[" class="">Brak narzutu, bezpieczeństwo.</td></tr><tr id="22107f3c-ef0e-8103-a013-efe0877c6b36"><td id="]_fA" class=""><code>shared_ptr</code></td><td id="s|pI" class="">Współdzielona własność.</td><td id="`Il[" class="">Proste zarządzanie cyklami.</td></tr><tr id="22107f3c-ef0e-8157-aee2-e5416c003790"><td id="]_fA" class=""><code>weak_ptr</code></td><td id="s|pI" class="">Unikanie cykli referencji.</td><td id="`Il[" class="">Bezpieczne “podglądanie”.</td></tr></tbody></table><p id="22107f3c-ef0e-8105-91ce-e9e1b0973b76" class=""><strong>Zasady:</strong></p><p id="22107f3c-ef0e-81ae-ae66-d1df9b38e743" class="">1. <strong>Zawsze używaj </strong><code><strong>make_unique</strong></code><strong> i </strong><code><strong>make_shared</strong></code> zamiast <code>new</code>.</p><p id="22107f3c-ef0e-8115-b3d4-c58741e057da" class="">2. <strong>Unikaj </strong><code><strong>auto_ptr</strong></code> – użyj <code>unique_ptr</code>.</p><p id="22107f3c-ef0e-812d-9aa4-c0246c8c55fd" class="">3. <code><strong>std::move</strong></code><strong> służy do optymalizacji</strong> przenoszenia zasobów.</p><p id="22107f3c-ef0e-810e-b7ce-c974203b1833" class="">4. <strong>Lepiej używać inteligentnych wskaźników niż </strong><code><strong>new/delete</strong></code>.</p><p id="22107f3c-ef0e-8186-8b95-eee0c51daef4" class="">🚀 <strong>Nowoczesne C++ preferuje RAII i inteligentne wskaźniki!</strong></p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

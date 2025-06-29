@@ -1,0 +1,720 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>10. Wyrazenia lambda</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="22107f3c-ef0e-811c-99d9-c98c969c8e0d" class="page sans"><header><h1 class="page-title">10. Wyrazenia lambda</h1><p class="page-description"></p></header><div class="page-body"><h3 id="22107f3c-ef0e-81cb-a493-c4b2d0e8a77c" class="">1. Co to są wyrażenia lambda?</h3><p id="22107f3c-ef0e-81af-9d22-fa39f6334a11" class=""><strong>Wyrażenia lambda</strong> (funkcje anonimowe) to krótkie, lokalne funkcje definiowane inline w kodzie, bez potrzeby deklarowania oddzielnej nazwanej funkcji. Wprowadzone w C++11, stały się fundamentem nowoczesnego C++.</p><hr id="22107f3c-ef0e-817b-bbdf-d37cf3d60c47"/><h3 id="22107f3c-ef0e-8180-a983-c287a1bfee69" class="">2. Po co wykorzystujemy lambdy?</h3><ul id="22107f3c-ef0e-8117-b3b4-de19548442c9" class="bulleted-list"><li style="list-style-type:disc"><strong>Krótkie, jednorazowe funkcje</strong> - gdy nie chcemy tworzyć pełnej funkcji</li></ul><ul id="22107f3c-ef0e-8133-b704-d30b1ef1185d" class="bulleted-list"><li style="list-style-type:disc"><strong>Algorytmy STL</strong> - przekazywanie predykatów (np. w <code>std::sort</code>, <code>std::find_if</code>)</li></ul><ul id="22107f3c-ef0e-815f-8440-e6d6458abb47" class="bulleted-list"><li style="list-style-type:disc"><strong>Asynchroniczne operacje</strong> - wygodne przekazywanie callbacków</li></ul><ul id="22107f3c-ef0e-8132-9c0c-fd6e56f18149" class="bulleted-list"><li style="list-style-type:disc"><strong>Zamykanie kontekstu</strong> - przechwytywanie zmiennych z otaczającego scope’u</li></ul><ul id="22107f3c-ef0e-81f7-80ed-d7f7e55bb219" class="bulleted-list"><li style="list-style-type:disc"><strong>Czytelność kodu</strong> - logika blisko miejsca użycia</li></ul><hr id="22107f3c-ef0e-81c5-a332-e8252833aa3e"/><h3 id="22107f3c-ef0e-81b1-ae7a-c3ea8524bb06" class="">3. Pełna składnia lambda</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-817c-aeb4-c934ac3cb427" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">[ przechwytywanie ] ( parametry ) mutable constexpr noexcept -&gt; typ_zwracany {
+// ciało lambdy
+}</code></pre><h3 id="22107f3c-ef0e-81e4-8de7-cf5e89f91c7f" class="">Elementy składowe:</h3><ol type="1" id="22107f3c-ef0e-8165-a315-e5f99ef5e363" class="numbered-list" start="1"><li><strong>Przechwytywanie</strong> (<code>[capture]</code>) - określa dostęp do zmiennych z zewnętrznego scope’u</li></ol><ol type="1" id="22107f3c-ef0e-8149-ba45-ffab27946616" class="numbered-list" start="2"><li><strong>Parametry</strong> - jak w zwykłych funkcjach</li></ol><ol type="1" id="22107f3c-ef0e-81e7-8484-cfcd1600116b" class="numbered-list" start="3"><li><strong>Modyfikatory</strong> (<code>mutable</code>, <code>constexpr</code>, <code>noexcept</code>)</li></ol><ol type="1" id="22107f3c-ef0e-810b-ae9c-cc2fb12096ce" class="numbered-list" start="4"><li><strong>Typ zwracany</strong> (opcjonalny, często dedukowany)</li></ol><ol type="1" id="22107f3c-ef0e-81a1-b0fd-c46c86ae45d0" class="numbered-list" start="5"><li><strong>Ciało funkcji</strong></li></ol><hr id="22107f3c-ef0e-8193-a09e-d30a6489ae3c"/><h3 id="22107f3c-ef0e-81c4-b0a3-c5324b3eb72f" class="">4. Przechwytywanie zmiennych</h3><table id="22107f3c-ef0e-81ae-8d05-d9dd8c95ecf4" class="simple-table"><tbody><tr id="22107f3c-ef0e-81a6-a32e-f3139f51f85a"><td id="SlFI" class="">Składnia</td><td id="PAbb" class="">Znaczenie</td></tr><tr id="22107f3c-ef0e-818c-ada0-e4d129da1ae9"><td id="SlFI" class=""><code>[]</code></td><td id="PAbb" class="">Nie przechwytuje żadnych zmiennych</td></tr><tr id="22107f3c-ef0e-8126-a876-c4a138718745"><td id="SlFI" class=""><code>[x]</code></td><td id="PAbb" class="">Przechwytuje <code>x</code> przez wartość (kopia)</td></tr><tr id="22107f3c-ef0e-8180-8739-e87b407774c5"><td id="SlFI" class=""><code>[&amp;x]</code></td><td id="PAbb" class="">Przechwytuje <code>x</code> przez referencję</td></tr><tr id="22107f3c-ef0e-81b4-8588-fe8e3aa3b1ee"><td id="SlFI" class=""><code>[=]</code></td><td id="PAbb" class="">Przechwytuje wszystkie zmienne przez wartość</td></tr><tr id="22107f3c-ef0e-8154-8b74-f62689576e49"><td id="SlFI" class=""><code>[&amp;]</code></td><td id="PAbb" class="">Przechwytuje wszystkie zmienne przez referencję</td></tr><tr id="22107f3c-ef0e-8154-bc30-fa0f349abc90"><td id="SlFI" class=""><code>[x, &amp;y]</code></td><td id="PAbb" class="">Mieszane przechwytywanie</td></tr><tr id="22107f3c-ef0e-8117-8549-def6be5b4089"><td id="SlFI" class=""><code>[this]</code></td><td id="PAbb" class="">Przechwytuje wskaźnik <code>this</code></td></tr><tr id="22107f3c-ef0e-815f-9d33-cf7f0dae0492"><td id="SlFI" class=""><code>[*this]</code></td><td id="PAbb" class="">Przechwytuje obiekt przez wartość (C++17)</td></tr><tr id="22107f3c-ef0e-81f3-83e3-e026e2ca4a29"><td id="SlFI" class=""><code>[x = expr]</code></td><td id="PAbb" class="">Inicjalizacja przechwyconej zmiennej (C++14)</td></tr><tr id="22107f3c-ef0e-814a-9fcb-ccddc897a71a"><td id="SlFI" class=""><code>[args...]</code></td><td id="PAbb" class="">Przechwytywanie packa parametrów (C++14)</td></tr></tbody></table><hr id="22107f3c-ef0e-8132-bf19-c84516ddbe15"/><h3 id="22107f3c-ef0e-8171-b970-fb6cbfc03e33" class="">5. Przykłady użycia</h3><h3 id="22107f3c-ef0e-8146-a5bd-f23bbda2c59a" class="">Przykład 1: Podstawowa lambda</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-819c-a3ff-dfb42f8234e5" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">auto print = []() { std::cout &lt;&lt; &quot;Hello Lambda!&quot;; };
+print(); // Wywołanie</code></pre><h3 id="22107f3c-ef0e-818f-a70b-fd94e52a3b2c" class="">Przykład 2: Lambda z parametrami</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-8156-b394-ee5da60291e1" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">auto add = [](int a, int b) { return a + b; };
+std::cout &lt;&lt; add(5, 3); // 8</code></pre><h3 id="22107f3c-ef0e-812a-a026-e4a4d9f3f337" class="">Przykład 3: Przechwytywanie zmiennych</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-81a5-a7ad-d551752e262f" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">int x = 10, y = 20;
+auto lambda = [x, &amp;y]() {
+    std::cout &lt;&lt; x &lt;&lt; &quot;, &quot; &lt;&lt; y;
+    y++; // OK - przez referencję
+    // x++; // Błąd - przez wartość (chyba że mutable)
+};
+lambda();</code></pre><h3 id="22107f3c-ef0e-81a4-8b71-cdd513ce04aa" class="">Przykład 4: Lambda w algorytmach STL</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-8131-a9c4-de4abf009895" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">std::vector&lt;int&gt; v = {5, 3, 8, 1};
+std::sort(v.begin(), v.end(), [](int a, int b) {
+    return a &gt; b; // Sortowanie malejące
+});</code></pre><h3 id="22107f3c-ef0e-815b-966a-c3a32671ecf5" class="">Przykład 5: Lambda z typem zwracanym</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-81a3-bc3e-c173a649edf4" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">auto div = [](int a, int b) -&gt; double {
+    if (b == 0) return 0.0;
+    return static_cast&lt;double&gt;(a) / b;
+};</code></pre><h3 id="22107f3c-ef0e-8191-8554-c4d1e3d0cb7a" class="">Przykład 6: mutable</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-8196-a006-f009a5f0ad2a" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">int counter = 0;
+auto inc = [counter]() mutable {
+    counter++;
+    return counter;
+};
+inc(); // 1
+inc(); // 2
+// counter w zewnętrznym scope pozostaje 0</code></pre><hr id="22107f3c-ef0e-81e2-b2f7-d360cb54575e"/><h3 id="22107f3c-ef0e-81f5-9ba6-f3f51776e456" class="">6. Zaawansowane zastosowania</h3><h3 id="22107f3c-ef0e-81aa-9037-de2e2d9df013" class="">Generic Lambdas (C++14)</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-81bf-8a88-ca4ee347dd73" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">auto generic = [](auto x, auto y) { return x + y; };
+std::cout &lt;&lt; generic(5, 3);   // 8
+std::cout &lt;&lt; generic(2.5, 1.5); // 4.0</code></pre><h3 id="22107f3c-ef0e-8125-b93d-dec16bd81cd2" class="">Init Capture (C++14)</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-817c-a8c1-d6541e013cfe" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">auto ptr = std::make_unique&lt;int&gt;(42);
+auto lambda = [p = std::move(ptr)]() {
+    std::cout &lt;&lt; *p;
+};</code></pre><h3 id="22107f3c-ef0e-81fa-b372-caed464017f8" class="">Immediately Invoked Lambda (IILE)</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-8196-ac36-d2557fc2fad7" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">const auto result = [](int x) {
+    // złożone obliczenia
+    return x * x;
+}(5); // natychmiastowe wywołanie</code></pre><h3 id="22107f3c-ef0e-81d1-b32c-dbbc580319cf" class="">Rekurencyjne lambdy</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-810a-ab4d-eaede44e7fa1" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">auto factorial = [](int n) {
+    auto f = [](auto&amp;&amp; self, int n) -&gt; int {
+        return n &lt;= 1 ? 1 : n * self(self, n-1);
+    };
+    return f(f, n);
+};
+std::cout &lt;&lt; factorial(5); // 120</code></pre><hr id="22107f3c-ef0e-8173-802e-d5b8537ab60f"/><h3 id="22107f3c-ef0e-81c5-959b-d77c549ff8a7" class="">7. Wydajność i optymalizacje</h3><ul id="22107f3c-ef0e-81bc-9afd-f9fdff5cd459" class="bulleted-list"><li style="list-style-type:disc"><strong>Lambdy bez przechwytywania</strong> mogą być konwertowane na wskaźniki funkcyjne</li></ul><ul id="22107f3c-ef0e-81ac-b852-fa9e3a8cebd1" class="bulleted-list"><li style="list-style-type:disc"><strong>Lambdy z przechwytywaniem</strong> są obiektami funkcyjnymi (funktorami)</li></ul><ul id="22107f3c-ef0e-8125-ad6b-d56bdacb8c0b" class="bulleted-list"><li style="list-style-type:disc"><strong>Inlineowanie</strong> - kompilator często inline’uje lambdy</li></ul><ul id="22107f3c-ef0e-810f-b36a-d9c61300e5d1" class="bulleted-list"><li style="list-style-type:disc"><strong>Rozmiar</strong> zależy od liczby przechwyconych zmiennych</li></ul><ul id="22107f3c-ef0e-81ed-9f62-c0ca5be83c1e" class="bulleted-list"><li style="list-style-type:disc"><strong>Wydajność</strong> zazwyczaj lepsza niż std::function</li></ul><hr id="22107f3c-ef0e-81c2-a632-d84e9de58666"/><h3 id="22107f3c-ef0e-81cd-8873-c57ba7810905" class="">8. Różnice między wersjami C++</h3><table id="22107f3c-ef0e-81e5-b416-ff2b44dd9181" class="simple-table"><tbody><tr id="22107f3c-ef0e-8146-abc6-ca17a0967b80"><td id="Jf`z" class="">C++ Wersja</td><td id="Pr;`" class="">Nowe możliwości lambd</td></tr><tr id="22107f3c-ef0e-81f2-ac41-fc2d98b47ed0"><td id="Jf`z" class="">C++11</td><td id="Pr;`" class="">Podstawowe lambdy</td></tr><tr id="22107f3c-ef0e-81a1-a3f0-d3996658bc70"><td id="Jf`z" class="">C++14</td><td id="Pr;`" class="">Generic lambdas, init capture, mutable w const</td></tr><tr id="22107f3c-ef0e-81cd-9aa2-f4ee90b26aad"><td id="Jf`z" class="">C++17</td><td id="Pr;`" class="">constexpr lambdy, capture *this</td></tr><tr id="22107f3c-ef0e-81fa-9d11-c7421618e6ca"><td id="Jf`z" class="">C++20</td><td id="Pr;`" class="">Lambdy w unevaluated contexts, template lambdas</td></tr></tbody></table><hr id="22107f3c-ef0e-8154-a19d-c0b540fea61a"/><h3 id="22107f3c-ef0e-81e3-9c71-f888be47b1dc" class="">9. Najlepsze praktyki</h3><ol type="1" id="22107f3c-ef0e-8131-ba9b-f4253ddea16c" class="numbered-list" start="1"><li><strong>Unikaj domyślnego przechwytywania</strong> (<code>[=]</code>, <code>[&amp;]</code>) - bądź explicite</li></ol><ol type="1" id="22107f3c-ef0e-81e8-a8c4-ff710a41730c" class="numbered-list" start="2"><li><strong>Używaj init capture</strong> dla move-only typów (C++14)</li></ol><ol type="1" id="22107f3c-ef0e-8147-8dbd-fa111e7e65a4" class="numbered-list" start="3"><li><strong>Preferuj lambdy</strong> nad std::bind</li></ol><ol type="1" id="22107f3c-ef0e-815f-a233-ee596fc6cff3" class="numbered-list" start="4"><li><strong>Dla callbacków</strong> rozważ std::function gdy potrzebujesz type erasure</li></ol><ol type="1" id="22107f3c-ef0e-81d7-b90d-c65d15650730" class="numbered-list" start="5"><li><strong>Zachowaj prostotę</strong> - złożone lambdy utrudniają czytanie kodu</li></ol><ol type="1" id="22107f3c-ef0e-8110-9636-cb7f53e78f24" class="numbered-list" start="6"><li><strong>Używaj constexpr lambd</strong> gdy możliwe (C++17)</li></ol><ol type="1" id="22107f3c-ef0e-81a1-a12a-e47b36f7185d" class="numbered-list" start="7"><li><strong>Unikaj mutable</strong> jeśli to możliwe - utrudnia zrozumienie kodu</li></ol><hr id="22107f3c-ef0e-818d-b1e7-ebb4a70d2c02"/><h3 id="22107f3c-ef0e-81d2-9a56-dc47c74568a9" class="">10. Lambdy vs inne konstrukcje</h3><table id="22107f3c-ef0e-8134-8ad1-f2e3b10ae967" class="simple-table"><tbody><tr id="22107f3c-ef0e-814a-9718-f54b26790ca6"><td id="NLVj" class="">Konstrukcja</td><td id="lnxj" class="">Zalety</td><td id="=aUi" class="">Wady</td></tr><tr id="22107f3c-ef0e-8155-8fc9-c3665893df61"><td id="NLVj" class="">Lambda</td><td id="lnxj" class="">Zwięzłe, lokalne, przechwytuje kontekst</td><td id="=aUi" class="">Tylko proste przypadki</td></tr><tr id="22107f3c-ef0e-81a3-8fd4-f80b04aa99fd"><td id="NLVj" class="">std::function</td><td id="lnxj" class="">Elastyczność, type erasure</td><td id="=aUi" class="">Narzut wydajności</td></tr><tr id="22107f3c-ef0e-8184-86e2-dc53de62fd31"><td id="NLVj" class="">Funkcja zwykła</td><td id="lnxj" class="">Reużywalność, czytelność</td><td id="=aUi" class="">Brak dostępu do lokalnego kontekstu</td></tr><tr id="22107f3c-ef0e-81c2-b0c8-f67dfa9d53df"><td id="NLVj" class="">Funktor</td><td id="lnxj" class="">Stan, przeciążanie operatora()</td><td id="=aUi" class="">Więcej boilerplate’u</td></tr></tbody></table><hr id="22107f3c-ef0e-81ad-9446-ee4b6ddff0f5"/><p id="22107f3c-ef0e-81b7-96a1-e94036ccba43" class="">Wyrażenia lambda to potężne narzędzie, które znacząco poprawia ekspresywność i elastyczność kodu w C++. Od C++11 stały się nieodłącznym elementem nowoczesnego programowania w tym języku.</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

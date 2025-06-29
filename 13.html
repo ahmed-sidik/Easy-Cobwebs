@@ -1,0 +1,775 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>13. Wyjatki</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="22107f3c-ef0e-81fa-938e-f7ba2ab9d87f" class="page sans"><header><h1 class="page-title">13. Wyjatki</h1><p class="page-description"></p></header><div class="page-body"><p id="22107f3c-ef0e-81fd-8a84-cb36e2ba2ec5" class="">Zakres zagadnień:<br/>- exception<br/>- try-catch<br/></p><h2 id="22107f3c-ef0e-81b9-87ec-e87739f14cca" class="">1. Co to są wyjątki w C++?</h2><p id="22107f3c-ef0e-81c4-ba12-e2a3d4b950f8" class="">Mechanizm obsługi błędów pozwalający na przerwanie normalnego przepływu programu i przekazanie kontroli do specjalnego bloku obsługi błędów. Składa się z:<br/>- <br/><code>throw</code> - zgłoszenie wyjątku<br/>- <br/><code>try</code> - blok chroniony<br/>- <br/><code>catch</code> - blok obsługi wyjątku</p><hr id="22107f3c-ef0e-816a-9c4e-e63776d27525"/><h2 id="22107f3c-ef0e-81fa-bc66-ec3b9f0e1ed4" class="">2. Po co wykorzystujemy wyjątki?</h2><ul id="22107f3c-ef0e-81c9-b6cc-da7fd3f4bf77" class="bulleted-list"><li style="list-style-type:disc"><strong>Separacja logiki biznesowej od obsługi błędów</strong></li></ul><ul id="22107f3c-ef0e-811d-a629-f89d9d1ba642" class="bulleted-list"><li style="list-style-type:disc"><strong>Centralna obsługa błędów</strong> - unikanie powielania kodu obsługi błędów</li></ul><ul id="22107f3c-ef0e-8169-bac4-c463947c29cd" class="bulleted-list"><li style="list-style-type:disc"><strong>Przekazywanie błędów przez wiele warstw wywołań</strong></li></ul><ul id="22107f3c-ef0e-81c9-8a5a-df2452361464" class="bulleted-list"><li style="list-style-type:disc"><strong>Bezpieczne zwalnianie zasobów</strong> (przez RAII)</li></ul><ul id="22107f3c-ef0e-81fa-bbe3-f1c710b19ff2" class="bulleted-list"><li style="list-style-type:disc"><strong>Lepsza czytelność</strong> niż kod oparty na kodach błędów</li></ul><hr id="22107f3c-ef0e-81ba-86f5-cc59effcfbbd"/><h2 id="22107f3c-ef0e-8111-b5c9-e10a0a9f2ef0" class="">3. Składnia podstawowa</h2><h3 id="22107f3c-ef0e-8169-a0da-d8c30588c23b" class="">Zgłaszanie wyjątku:</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-8182-a21f-ddeb82762a9a" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">throw typ_wyjątku(argumenty);
+// np.:
+throw std::runtime_error(&quot;Błąd otwarcia pliku&quot;);</code></pre><h3 id="22107f3c-ef0e-8185-8986-d87cc84ccb65" class="">Blok try-catch:</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-81ae-bdd1-fd09416ffc50" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">try {
+    // kod który może zgłosić wyjątek
+} 
+catch (const typ1&amp; e) {
+    // obsługa wyjątku typu typ1
+} 
+catch (const typ2&amp; e) {
+    // obsługa wyjątku typu typ2
+} 
+catch (...) {
+    // obsługa wszystkich innych wyjątków
+}</code></pre><hr id="22107f3c-ef0e-8160-b968-da4e60ef8ef4"/><h2 id="22107f3c-ef0e-8137-9e9b-ea5b21ef5022" class="">4. Hierarchia standardowych wyjątków</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-8152-aca2-e703b7826c86" class="code"><code class="language-Mermaid" style="white-space:pre-wrap;word-break:break-all">classDiagram
+    exception &lt;|-- logic_error
+    exception &lt;|-- runtime_error
+    logic_error &lt;|-- invalid_argument
+    logic_error &lt;|-- domain_error
+    logic_error &lt;|-- length_error
+    logic_error &lt;|-- out_of_range
+    runtime_error &lt;|-- range_error
+    runtime_error &lt;|-- overflow_error
+    runtime_error &lt;|-- underflow_error
+    runtime_error &lt;|-- system_error</code></pre><hr id="22107f3c-ef0e-8133-b48d-dbc02b2c6a12"/><h2 id="22107f3c-ef0e-8141-b626-f70eb94e29df" class="">5. Przykłady użycia</h2><h3 id="22107f3c-ef0e-8160-bca9-d2fd96338f39" class="">Przykład 1: Podstawowa obsługa błędów</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-8130-84b2-e4c5ceefc258" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">double dziel(double a, double b) {
+    if (b == 0.0) 
+        throw std::invalid_argument(&quot;Dzielenie przez zero&quot;);
+    return a / b;
+}
+
+int main() {
+    try {
+        double wynik = dziel(10, 0);
+    }
+    catch (const std::invalid_argument&amp; e) {
+        std::cerr &lt;&lt; &quot;Błąd: &quot; &lt;&lt; e.what() &lt;&lt; &quot;\n&quot;;
+    }
+}</code></pre><h3 id="22107f3c-ef0e-81cd-9006-cd5932688ace" class="">Przykład 2: Własna klasa wyjątku</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-8153-a113-e633954f1d92" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">class MojaKlasaBledu : public std::exception {
+    std::string msg;
+public:
+    MojaKlasaBledu(const std::string&amp; s) : msg(s) {}
+    const char* what() const noexcept override {
+        return msg.c_str();
+    }
+};
+
+void test() {
+    throw MojaKlasaBledu(&quot;Coś poszło nie tak&quot;);
+}</code></pre><h3 id="22107f3c-ef0e-81d7-9db0-f619c74ba80c" class="">Przykład 3: Wielokrotne catch</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-81e8-9610-ea5a8bd7a0b0" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">try {
+    // kod który może zgłosić różne wyjątki
+} 
+catch (const std::out_of_range&amp; e) {
+    // obsługa błędów zakresu
+} 
+catch (const std::logic_error&amp; e) {
+    // obsługa innych błędów logicznych
+} 
+catch (const std::exception&amp; e) {
+    // obsługa wszystkich pozostałych wyjątków standardowych
+} 
+catch (...) {
+    // obsługa wszystkich innych wyjątków
+}</code></pre><hr id="22107f3c-ef0e-81ec-b9b0-c092f2360dc8"/><h2 id="22107f3c-ef0e-8134-9ee5-c6e91862164b" class="">6. Zaawansowane techniki</h2><h3 id="22107f3c-ef0e-816c-abb5-ce29bdc0c959" class="">Exception safety gwarancje:</h3><ol type="1" id="22107f3c-ef0e-811a-898d-e0141240f7ab" class="numbered-list" start="1"><li><strong>No-throw</strong> - operacja nigdy nie zgłasza wyjątków (<code>noexcept</code>)</li></ol><ol type="1" id="22107f3c-ef0e-8170-a5ba-fc5a6f5aed15" class="numbered-list" start="2"><li><strong>Basic</strong> - brak wycieków zasobów, obiekt pozostaje w spójnym stanie</li></ol><ol type="1" id="22107f3c-ef0e-819a-b302-e3c2ebf27d1e" class="numbered-list" start="3"><li><strong>Strong</strong> - operacja albo się powiedzie, albo nie zmieni stanu programu</li></ol><ol type="1" id="22107f3c-ef0e-8117-a209-cb9dd42f4d82" class="numbered-list" start="4"><li><strong>No guarantee</strong> - brak gwarancji</li></ol><h3 id="22107f3c-ef0e-8179-8505-ca4d57f80522" class="">Specyfikacja noexcept (C++11):</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-815c-b54f-ec4d189904b7" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">void funkcja_gwarantowana() noexcept; // nigdy nie throw
+void inna_funkcja() noexcept(true); // może być w czasie kompilacji</code></pre><h3 id="22107f3c-ef0e-8146-9be6-f9fa9bac7c6b" class="">Przekazywanie wyjątków między wątkami:</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-81eb-b8db-c46a9844402c" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">std::exception_ptr eptr;
+
+void watek_funkcja() {
+    try {
+        // kod wątku
+    } catch (...) {
+        eptr = std::current_exception();
+    }
+}
+
+int main() {
+    std::thread t(wątek_funkcja);
+    t.join();
+    
+    if (eptr) {
+        try {
+            std::rethrow_exception(eptr);
+        } catch (const std::exception&amp; e) {
+            std::cout &lt;&lt; e.what();
+        }
+    }
+}</code></pre><hr id="22107f3c-ef0e-81ed-afa2-dd3526f13356"/><h2 id="22107f3c-ef0e-812f-ae96-c6b11e891f3c" class="">7. Najlepsze praktyki</h2><ol type="1" id="22107f3c-ef0e-8114-a06c-f2c732347aa4" class="numbered-list" start="1"><li><strong>Nie używaj wyjątków do kontroli przepływu</strong> - tylko do sytuacji wyjątkowych</li></ol><ol type="1" id="22107f3c-ef0e-8163-9a8f-cdebdadd2177" class="numbered-list" start="2"><li><strong>Dziedzicz z std::exception</strong> dla własnych wyjątków</li></ol><ol type="1" id="22107f3c-ef0e-8132-89d2-f9de2a16b672" class="numbered-list" start="3"><li><strong>Przechwytuj wyjątki przez referencję</strong> (<code>catch (const T&amp; e)</code>)</li></ol><ol type="1" id="22107f3c-ef0e-8153-b69b-fe3f05f23a2e" class="numbered-list" start="4"><li><strong>Zawsze obsługuj wyjątki w wątkach</strong> - niezgłoszone wyjątki kończą program</li></ol><ol type="1" id="22107f3c-ef0e-8153-858a-d3fafe887e6b" class="numbered-list" start="5"><li><strong>Używaj RAII</strong> do zarządzania zasobami (np. smart pointers)</li></ol><ol type="1" id="22107f3c-ef0e-815a-8737-c235a25c3a83" class="numbered-list" start="6"><li><strong>Unikaj throw w destruktorach</strong> - może prowadzić do std::terminate</li></ol><ol type="1" id="22107f3c-ef0e-8164-99e7-c3c9e43d31c1" class="numbered-list" start="7"><li><strong>Dokumentuj jakie wyjątki mogą być zgłaszane</strong> przez funkcje</li></ol><hr id="22107f3c-ef0e-81c7-a161-e41604b0c2c7"/><h2 id="22107f3c-ef0e-8144-a3e4-df2ac5db4624" class="">8. Exception handling a wydajność</h2><ul id="22107f3c-ef0e-812f-a6fd-f2711744596a" class="bulleted-list"><li style="list-style-type:disc"><strong>Koszt try-catch</strong> jest minimalny gdy wyjątek nie jest zgłaszany</li></ul><ul id="22107f3c-ef0e-8150-84d8-d30fbf0ab8fa" class="bulleted-list"><li style="list-style-type:disc"><strong>Zgłoszenie wyjątku</strong> jest kosztowne (ok. 10-100x wolniejsze niż kod błędów)</li></ul><ul id="22107f3c-ef0e-814e-91ba-e86d99f341f8" class="bulleted-list"><li style="list-style-type:disc"><strong>Optymalizacja</strong>: Używaj wyjątków tylko dla naprawdę wyjątkowych sytuacji</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="22107f3c-ef0e-812b-afaf-da3bb4dbd281" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">auto start = std::chrono::high_resolution_clock::now();
+for (int i = 0; i &lt; 1000000; ++i) {
+    try {
+        throw 1;
+    } catch (int) {}
+}
+auto duration = std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(
+    std::chrono::high_resolution_clock::now() - start
+);
+std::cout &lt;&lt; &quot;Czas: &quot; &lt;&lt; duration.count() &lt;&lt; &quot;ms\n&quot;;</code></pre><hr id="22107f3c-ef0e-81ff-ae8b-fdc1370934a1"/><h2 id="22107f3c-ef0e-81c2-938a-d36a3c728f5e" class="">9. Ciekawostki</h2><ul id="22107f3c-ef0e-8125-a46a-c0d2dc183740" class="bulleted-list"><li style="list-style-type:disc"><strong>W C++ nie ma finally</strong> - używaj RAII (np. std::lock_guard)</li></ul><ul id="22107f3c-ef0e-8170-8ead-d9419855ecf9" class="bulleted-list"><li style="list-style-type:disc"><strong>Wyjątki mogą być dowolnego typu</strong> (int, string, ale nie zalecane)</li></ul><ul id="22107f3c-ef0e-8116-895c-e94fec1fa53e" class="bulleted-list"><li style="list-style-type:disc"><strong>Dynamiczne wyjątki (throw()) są deprecated</strong> od C++11</li></ul><ul id="22107f3c-ef0e-81d6-9196-dcda3a094782" class="bulleted-list"><li style="list-style-type:disc"><strong>W C++17 wprowadzono std::uncaught_exceptions()</strong> - liczba aktywnych wyjątków</li></ul><hr id="22107f3c-ef0e-8123-8bfc-c149916c7169"/><p id="22107f3c-ef0e-814e-abcc-e9957e901ae5" class="">Te informacje powinny zapewnić solidne podstawy do pracy z wyjątkami w C++. Pamiętaj, że dobrze zaprojektowany system obsługi błędów jest kluczowy dla niezawodności oprogramowania.</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
